@@ -1,0 +1,23 @@
+project:
+  service:
+    - id: "1"
+      class: "webserver"
+      type: "generic"
+    - id: "2"
+      class: "db"
+      type: "generic"
+    - id: "3"
+      class: "loadbalancer"
+      type: "generic"
+  topology:
+    - id: "id"
+    - class: "class"
+    - provider:
+      - id: "id"
+      - class: "class"
+    - region:
+      - id: "id"
+      - class: "class"
+    - vm:
+      - id: "id"
+      - class: "class"
