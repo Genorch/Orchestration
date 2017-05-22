@@ -1,21 +1,18 @@
 import json
+from Utils import Utils
 
 
 class KeystoneClient(object):
+    def __init__(self, keystone_host, keystone_port=5000):
+        self.host = keystone_host
+        self.port = keystone_port
 
-    def __init__(self, KeystoneHost, KeystonePort=5000):
-        self.host = KeystoneHost
-        self.port = KeystonePort
-
-    def getTokensbyToken(self, tenant, token):
-        ret = self._HTTPCall(self.host, self.port, 'POST', '/v2.0/tokens', {},
-                             '{"auth": {"tenantName":"'+tenant+'",  "token": {"id":"'+token+'"}}}')
+    def get_tokens_by_token(self, tenant, token):
+        body = '{"auth": {"tenantName":"' + tenant + '",  "token": {"id":"' + token + '"}}}'
+        ret = Utils.http_call(self.host, self.port, 'POST', '/v2.0/tokens', {}, body)
         return json.loads(ret)
 
-    def getTokensbyUsername(self, tenant, username, password):
-        ret = self._HTTPCall(self.host, self.port, 'POST', '/v2.0/tokens', {},
-                             '{"auth": {"passwordCredentials": {"username": "'+
-                             username+
-                             '", "password": "'+password+'"}}}')
+    def get_tokens_by_username(self, tenant, username, password):
+        body = '{"auth": {"passwordCredentials": {"username": "' + username + '", "password": "' + password + '"}}}'
+        ret = Utils.http_call(self.host, self.port, 'POST', '/v2.0/tokens', {}, body)
         return json.loads(ret)
-

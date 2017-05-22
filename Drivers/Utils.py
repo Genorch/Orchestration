@@ -3,14 +3,13 @@ import traceback
 
 
 class Utils(object):
-
     @staticmethod
-    def http_call(self, host, port, method, url, header, body=None):
+    def http_call(host, port, method, url, header, body=None):
 
         res = None
         try:
             _conn = httplib.HTTPConnection(host, port)
-            header['Content-Type']= "application/json"
+            header['Content-Type'] = "application/json"
             _conn.request(method, url, body=body, headers=header)
             res = _conn.getresponse()
             ret = res.read()
