@@ -3,6 +3,7 @@ import traceback
 
 
 class Utils(object):
+
     @staticmethod
     def http_call(host, port, method, url, header, body=None):
 
