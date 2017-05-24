@@ -33,3 +33,21 @@ class NovaClient(object):
                 name=instance_name, image=image, flavor=flavor, nics=nics)
 
         print(instance)
+
+    def delete_vm(self, server_name):
+            servers_list = self.nova.servers.list()
+            server_del = server_name
+            server_exists = False
+
+            for server in servers_list:
+                if server.name == server_del:
+                    print("This server %s exists" % server_del)
+                    server_exists = True
+                    break
+
+            if not server_exists:
+                print("Server %s does not exist" % server_del)
+            else:
+                print("Deleting server..........")
+                self.nova.servers.delete(server)
+                print("Server %s deleted" % server_del)
