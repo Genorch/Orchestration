@@ -7,7 +7,10 @@ class NovaClient(object):
         self.keyClient = KeystoneClient(keystone_host, keystone_port)
 
     def get_vms(self, token, region, tenant):
-        return self._send_request(tenant, token, region, "GET", "/servers/detail")
+        return self._send_request(
+                tenant, token, region, "GET",
+                "/servers/detail"
+                )
 
     def _send_request(self, tenant, token, region, method, url):
         resp = self.keyClient.get_tokens_by_token(tenant, token)
@@ -20,11 +23,11 @@ class NovaClient(object):
                 for endpoint in service['endpoints']:
                     if endpoint['region'] == region:
                         parts = endpoint['publicURL'].split(':')
-                        iURL = "/" + parts[2].partition("/")[2] + url
+                        i_url = "/" + parts[2].partition("/")[2] + url
                         host = parts[1].split('/')[2]
                         port = int(parts[2].partition("/")[0])
                         conn = httplib.HTTPConnection(host, port)
-                        conn.request(method, iURL, None, headers)
+                        conn.request(method, i_url, None, headers)
                         res = conn.getresponse()
                         if res.status in (httplib.OK,
                                           httplib.CREATED,
@@ -32,5 +35,6 @@ class NovaClient(object):
                                           httplib.NO_CONTENT):
                             return res.read()
                         raise httplib.HTTPException(
-                            res, 'Return status: %d; Reason: %s' % (res.status, res.reason),
+                            res, 'Return status: %d; Reason: %s' %
+                            (res.status, res.reason),
                             res.getheaders(), res.read())

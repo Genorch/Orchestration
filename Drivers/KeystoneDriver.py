@@ -9,10 +9,14 @@ class KeystoneClient(object):
 
     def get_tokens_by_token(self, tenant, token):
         body = '{"auth": {"tenantName":"' + tenant + '",  "token": {"id":"' + token + '"}}}'
-        ret = Utils.http_call(self.host, self.port, 'POST', '/v2.0/tokens', {}, body)
+        ret = Utils.http_call(
+                self.host, self.port, 'POST', '/v2.0/tokens', {}, body
+                )
         return json.loads(ret)
 
     def get_tokens_by_username(self, tenant, username, password):
         body = '{"auth": {"passwordCredentials": {"username": "' + username + '", "password": "' + password + '"}}}'
-        ret = Utils.http_call(self.host, self.port, 'POST', '/v2.0/tokens', {}, body)
+        ret = Utils.http_call(
+                self.host, self.port, 'POST', '/v2.0/tokens', {}, body
+                )
         return json.loads(ret)
