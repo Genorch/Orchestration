@@ -22,3 +22,14 @@ class NovaClient(object):
 
     def get_vms(self):
         print(self.nova.servers.list())
+
+    def boot_vm(self, image_name, flavor_name, network_label, instance_name):
+
+        image = self.nova.images.find(name=image_name)
+        flavor = self.nova.flavors.find(name=flavor_name)
+        net = self.nova.networks.find(label=network_label)
+        nics = [{'net-id': net.id}]
+        instance = self.nova.servers.create(
+                name=instance_name, image=image, flavor=flavor, nics=nics)
+
+        print(instance)
