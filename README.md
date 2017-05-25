@@ -1,7 +1,7 @@
-# Generic Network Orchestration Platform
+# Generic Orchestration Platform
 
 ## Introdution
-This platform is supposed to be a generic network orchestration platform, 
+This platform is supposed to be a generic orchestration platform, 
 supporting different domains and have the ability of supporting containers
 along with virtual machines.
 
