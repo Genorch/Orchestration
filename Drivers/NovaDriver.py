@@ -6,7 +6,7 @@ from novaclient.client import Client
 class NovaClient(object):
     def __init__(self):
 
-        with open('../config/os_example.json') as os_config_file:
+        with open('../config/os.json') as os_config_file:
                 os_cfg = json.load(os_config_file)
 
                 credentials = {
