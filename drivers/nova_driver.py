@@ -3,7 +3,7 @@ import json
 from novaclient.client import Client
 
 
-class NovaClient:
+class NovaDriver:
     def __init__(self):
         with open('../config/os.json') as os_config_file:
                 os_cfg = json.load(os_config_file)
