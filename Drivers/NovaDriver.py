@@ -5,7 +5,6 @@ from novaclient.client import Client
 
 class NovaClient(object):
     def __init__(self):
-
         with open('../config/os.json') as os_config_file:
                 os_cfg = json.load(os_config_file)
 
@@ -24,7 +23,6 @@ class NovaClient(object):
         print(self.nova.servers.list())
 
     def boot_vm(self, image_name, flavor_name, network_label, instance_name):
-
         image = self.nova.images.find(name=image_name)
         flavor = self.nova.flavors.find(name=flavor_name)
         net = self.nova.networks.find(label=network_label)
