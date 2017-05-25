@@ -1,0 +1,8 @@
+{
+    "OS_AUTH_URL": "http://iam.savitestbed.ca:5000/v2.0/",
+    "OS_REGION_NAME": "CORE",
+    "OS_PROJECT_NAME": "ece1548",
+    "OS_USERNAME": "MY_USERNAME",
+    "OS_PASSWORD": "MY_PASSWORD",
+    "OS_COMPUTE_API_VERSION": "1.1"
+}
