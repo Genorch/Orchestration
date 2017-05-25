@@ -102,3 +102,6 @@ ENV/
 
 # End of https://www.gitignore.io/api/python
 .idea/*
+
+# Project Specific Files
+config/os.json
