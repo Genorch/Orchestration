@@ -15,7 +15,17 @@ class BaseDriver(abc.ABCMeta):
     def get(cls, name):
         if name not in cls.things:
             try:
-                importlib.import_module('drivers.%s_driver' % name)
+                importlib.import_module('drivers.%s.driver' % name)
             except ImportError as e:
                 print(e)
         return cls.things[name]
+
+
+class Driver(metaclass=BaseDriver):
+    def __init__(self):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def name(self):
+        raise NotImplemented()
