@@ -9,7 +9,7 @@ class BaseProvider(abc.ABCMeta):
         instance = abc.ABCMeta.__new__(cls, name, bases, namespace)
 
         if isinstance(instance.name, str):
-            cls.provider[instance.name] = instance
+            cls.providers[instance.name] = instance
 
     @classmethod
     def get(cls, name):
