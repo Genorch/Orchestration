@@ -1,2 +1,4 @@
 python-novaclient
 ansible
+click
+pyyaml
