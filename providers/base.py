@@ -2,7 +2,7 @@ import abc
 import importlib
 
 
-class BaseDriver(abc.ABCMeta):
+class BaseProvider(abc.ABCMeta):
     drivers = {}
 
     def __new__(cls, name, bases, namespace):
@@ -15,13 +15,13 @@ class BaseDriver(abc.ABCMeta):
     def get(cls, name):
         if name not in cls.things:
             try:
-                importlib.import_module('drivers.%s' % name)
+                importlib.import_module('providers.%s' % name)
             except ImportError as e:
                 print(e)
         return cls.things[name]
 
 
-class Driver(metaclass=BaseDriver):
+class Driver(metaclass=BaseProvider):
     def __init__(self):
         pass
 
