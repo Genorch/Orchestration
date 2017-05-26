@@ -1,7 +1,7 @@
-from ..base import Driver
+from ..base import Provider
 
 
-class OpenStackDriver(Driver):
+class OpenStackProvider(Provider):
     name = 'openstack'
 
     def __init__(self):
