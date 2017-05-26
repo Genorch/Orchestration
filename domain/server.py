@@ -1,4 +1,5 @@
 from providers.base import BaseProvider
+from ansible import AnsibleDriver
 
 
 class Server:
@@ -9,4 +10,4 @@ class Server:
 
     def create_vm(self):
         self.provider.create_server()
-        # TODO run asible configuration
+        AnsibleDriver(self._class).setup
