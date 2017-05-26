@@ -11,6 +11,8 @@ class BaseProvider(abc.ABCMeta):
         if isinstance(instance.name, str):
             cls.providers[instance.name] = instance
 
+        return instance
+
     @classmethod
     def get(cls, name):
         if name not in cls.providers:
