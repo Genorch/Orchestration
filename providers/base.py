@@ -3,25 +3,25 @@ import importlib
 
 
 class BaseProvider(abc.ABCMeta):
-    drivers = {}
+    providers = {}
 
     def __new__(cls, name, bases, namespace):
         instance = abc.ABCMeta.__new__(cls, name, bases, namespace)
 
         if isinstance(instance.name, str):
-            cls.drivers[instance.name] = instance
+            cls.provider[instance.name] = instance
 
     @classmethod
     def get(cls, name):
-        if name not in cls.things:
+        if name not in cls.providers:
             try:
                 importlib.import_module('providers.%s' % name)
             except ImportError as e:
                 print(e)
-        return cls.things[name]
+        return cls.providers[name]
 
 
-class Driver(metaclass=BaseProvider):
+class Provider(metaclass=BaseProvider):
     def __init__(self):
         pass
 
