@@ -20,7 +20,7 @@ class NovaDriver:
                 self.nova = Client(**credentials)
 
     def get_vms(self):
-        print(self.nova.servers.list())
+        return self.nova.servers.list()
 
     def boot_vm(self, image_name, flavor_name, network_label, instance_name):
         image = self.nova.images.find(name=image_name)
@@ -30,22 +30,19 @@ class NovaDriver:
         instance = self.nova.servers.create(
                 name=instance_name, image=image, flavor=flavor, nics=nics)
 
-        print(instance)
+        return instance
 
     def delete_vm(self, server_name):
             servers_list = self.nova.servers.list()
             server_del = server_name
-            server_exists = False
 
             for server in servers_list:
                 if server.name == server_del:
                     print("This server %s exists" % server_del)
-                    server_exists = True
                     break
-
-            if not server_exists:
-                print("Server %s does not exist" % server_del)
             else:
-                print("Deleting server..........")
-                self.nova.servers.delete(server)
-                print("Server %s deleted" % server_del)
+                print("Server %s does not exist" % server_del)
+
+            print("Deleting server..........")
+            self.nova.servers.delete(server)
+            print("Server %s deleted" % server_del)
