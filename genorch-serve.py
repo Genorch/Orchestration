@@ -3,6 +3,8 @@
 import yaml
 import click
 
+from domain.server import Server
+
 
 @click.command()
 @click.option('--load', prompt='YAML file',
@@ -11,7 +13,7 @@ def parse(load):
     with open(load) as stream:
         m = yaml.load(stream)
         for server in m['project']['service']:
-            print(server)
+            Server(server['id'], server['class'], 'openstack')
 
 
 if __name__ == '__main__':
