@@ -11,8 +11,8 @@ from domain.server import Server
               help='Target yaml file to parse')
 def parse(load):
     with open(load) as stream:
-        m = yaml.load(stream)
-        for server in m['project']['service']:
+        model = yaml.load(stream)
+        for server in model['project']['service']:
             Server(server['id'], server['class'], 'openstack').create()
 
 
