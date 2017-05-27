@@ -8,6 +8,6 @@ class Server:
         self._class = _class
         self.provider = BaseProvider.get(provider)()
 
-    def create_vm(self):
+    def create(self):
         self.provider.create_server()
         AnsibleDriver(self._class).setup
