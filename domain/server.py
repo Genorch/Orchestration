@@ -1,5 +1,4 @@
 from providers.base import BaseProvider
-from ansible import AnsibleDriver
 
 
 class Server:
@@ -10,4 +9,3 @@ class Server:
 
     def create(self):
         self.provider.create_server()
-        AnsibleDriver(self._class).setup
