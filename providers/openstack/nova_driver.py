@@ -25,9 +25,14 @@ class NovaDriver:
     def get_vms(self):
         return self.nova.servers.list()
 
-    def create_flavor(self):
-        # TODO
-        pass
+    def create_flavor(self, name, ram, vcpus, disk):
+        """
+        :param name: Descriptive name of the flavor
+        :param ram: Memory in MB for the flavor
+        :param vcpus: Number of VCPUs for the flavor
+        :param disk: Size of local disk in GB
+        """
+        self.nova.flavors.create(name, ram, vcpus, disk)
 
     def boot_vm(self, image_name, flavor_name, network_label, instance_name):
         image = self.nova.images.find(name=image_name)
