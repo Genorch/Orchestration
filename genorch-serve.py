@@ -13,7 +13,7 @@ def parse(load):
     with open(load) as stream:
         m = yaml.load(stream)
         for server in m['project']['service']:
-            Server(server['id'], server['class'], 'openstack').create_vm()
+            Server(server['id'], server['class'], 'openstack').create()
 
 
 if __name__ == '__main__':
