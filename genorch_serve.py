@@ -12,7 +12,7 @@ from domain.server import Server
 def parse(load):
     with open(load) as stream:
         m = yaml.load(stream)
-        for server in m['project']['topology']['region']['vm']:
+        for server in m['project']['service']:
             Server(server['id'], server['class'], 'openstack').create()
 
 
