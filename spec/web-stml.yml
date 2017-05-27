@@ -13,10 +13,10 @@ project:
     - id: "id"
     - class: "class"
     - provider:
-      - id: "id"
+      - id: "savi"
       - class: "class"
     - region:
-      - id: "id"
+      - id: "canada"
       - class: "class"
     - vm:
       - id: "id"
