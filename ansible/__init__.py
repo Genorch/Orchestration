@@ -13,7 +13,7 @@ class AnsibleDriver:
                 playbook='ansible/playbooks/%s.yml' % playbook,
                 host_list=[],
                 remote_user=ansible_cfg['REMOTE_USER'],
-                private_key_file=ansible_cfg['PRIVATE_KEY']
+                private_key_file=ansible_cfg['PRIVATE_SSH_KEY']
         )
         results = pb.run()
         return results
