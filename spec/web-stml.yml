@@ -23,4 +23,5 @@ project:
                 class: "class"
                 ram: "256MB"
                 hard: "20GB"
+                image_name: "Ubuntu-16-04"
                 vcpu: 2
