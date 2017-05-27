@@ -1,3 +1,5 @@
 {
-    "ANSIBLE_CONFIG": "/path/to/ansible.cfg"
+    "ANSIBLE_CONFIG": "/path/to/ansible.cfg",
+    "REMOTE_USER": "remote_user",
+    "PRIVATE_SSH_KEY": "/path/to/private.key"
 }
