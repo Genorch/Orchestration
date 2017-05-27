@@ -16,5 +16,9 @@ def parse(load):
             Server(server['id'], server['class'], 'openstack').create()
 
 
+def cli():
+    print('Hello world')
+
+
 if __name__ == '__main__':
     parse()
