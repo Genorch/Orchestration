@@ -21,3 +21,6 @@ project:
             vm:
               - id: "id"
                 class: "class"
+                ram: "256MB"
+                hard: "20GB"
+                vcpu: 2
