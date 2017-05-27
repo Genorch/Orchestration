@@ -10,14 +10,14 @@ project:
       class: "loadbalancer"
       type: "generic"
   topology:
-    - id: "id"
-    - class: "class"
-    - provider:
+    id: "id"
+    class: "class"
+    provider:
       - id: "savi"
-      - class: "class"
-    - region:
-      - id: "canada"
-      - class: "class"
-    - vm:
-      - id: "id"
-      - class: "class"
+        class: "class"
+        region:
+          - id: "canada"
+            class: "class"
+            vm:
+              - id: "id"
+                class: "class"
