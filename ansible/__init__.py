@@ -8,7 +8,15 @@ class AnsibleDriver:
         pass
 
     def setup(self, playbook):
-        ansible_cfg = json.load(open('../config/ansible.json'))
+        ansible_cfg = ''
+
+        try:
+            ansible_cfg = json.load(open('../config/ansible.json'))
+
+        except FileNotFoundError:
+            print("Ansible configuration not found.")
+            exit()
+
         pb = PlayBook(
                 playbook='ansible/playbooks/%s.yml' % playbook,
                 host_list=[],
