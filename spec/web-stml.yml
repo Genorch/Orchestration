@@ -14,15 +14,18 @@ project:
     - id: "1"
       class: "webserver"
       type: "generic"
-      vm: "1"
+      vm:
+        - "1"
     - id: "2"
       class: "db"
       type: "generic"
-      vm: "2"
+      vm:
+        - "2"
     - id: "3"
       class: "loadbalancer"
       type: "generic"
-      vm: "3"
+      vm:
+        - "3"
 
   topology: # Describe service dependecies
     - id: "1"
@@ -30,7 +33,7 @@ project:
         - id: "2"
         - id: "3"
 
-  provider: # I think it's better to sseparate project from provider
+  provider: # I think it's better to separate project from provider
     - id: "savi"
     class: "class"
     region:
