@@ -1,27 +1,38 @@
 project:
-  service:
+  vm:
+    - id: "1"
+      class: "custom" # custom flavor, continue with its vcpus, ram and hard
+      ram: "256MB"
+      hard: "20GB"
+      vcpu: 2
+    - id: "2"
+      class: "small" # default small flavor
+    - id: "3"
+      class: "small"
+
+  service: # describe each service with it's associated vm
     - id: "1"
       class: "webserver"
       type: "generic"
+      vm: "1"
     - id: "2"
       class: "db"
       type: "generic"
+      vm: "2"
     - id: "3"
       class: "loadbalancer"
       type: "generic"
-  topology:
-    id: "id"
+      vm: "3"
+
+  topology: # Describe service dependecies
+    - id: "1"
+      depend_on:
+        - id: "2"
+        - id: "3"
+
+  provider: # I think it's better to sseparate project from provider
+    - id: "savi"
     class: "class"
-    provider:
-      - id: "savi"
-        class: "class"
-        region:
-          - id: "canada"
-            class: "class"
-            vm:
-              - id: "id"
-                class: "class"
-                ram: "256MB"
-                hard: "20GB"
-                image_name: "Ubuntu-16-04"
-                vcpu: 2
+    region:
+      - id: "canada"
+      class: "class"

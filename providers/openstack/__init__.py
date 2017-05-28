@@ -8,6 +8,7 @@ class OpenStackProvider(Provider):
     def __init__(self):
         self.nova_driver = NovaDriver()
 
-    def create_server(self):
-        print(self.get_vms())
-        pass
+    def create_server(self, ram, vcpus, disk):
+        # TODO ansible initiation, image name and network configuration
+        flavor_id = self.create_flavor()
+        self.boot_vm(flavor_id)
