@@ -38,8 +38,3 @@ project:
       depend_on:
         - id: "2"
         - id: "3"
-
-  provider: # I think it's better to separate project from provider
-    savi:
-      class: "openstack"
-      region: "canada"
