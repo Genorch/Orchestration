@@ -5,6 +5,7 @@ project:
       ram: "256MB"
       hard: "20GB"
       vcpu: 2
+      provider: "savi"
     - id: "2"
       class: "small" # default small flavor
     - id: "3"
@@ -34,8 +35,6 @@ project:
         - id: "3"
 
   provider: # I think it's better to separate project from provider
-    - id: "savi"
-    class: "class"
-    region:
-      - id: "canada"
-      class: "class"
+    savi:
+      class: "openstack"
+      region: "canada"
