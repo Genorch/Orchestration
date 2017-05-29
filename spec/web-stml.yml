@@ -1,15 +1,19 @@
 project:
   vm:
     - id: "1"
-      class: "custom" # custom flavor, continue with its vcpus, ram and hard
-      ram: "256MB"
-      hard: "20GB"
-      vcpu: 2
-      provider: "savi"
+      provider:
+        name: "savi"
+        driver: "open_stack"
+        resouces:
+          ram: "256MB"
+          hard: "20GB"
+          vcpu: 2
     - id: "2"
-      class: "small" # default small flavor
-    - id: "3"
-      class: "small"
+      provider:
+        name: "savi"
+        driver: "open_stack"
+        resouces:
+          flavor: "small"
 
   service: # describe each service with it's associated vm
     - id: "1"
