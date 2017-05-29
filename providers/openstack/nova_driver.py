@@ -4,7 +4,7 @@ from novaclient.client import Client
 
 
 class NovaDriver:
-    def __init__(self):
+    def __init__(self, region):
         try:
             os_cfg = json.load(open('config/os.json'))
 
@@ -14,7 +14,7 @@ class NovaDriver:
                 "username": os_cfg['OS_USERNAME'],
                 "password": os_cfg['OS_PASSWORD'],
                 "project_id": os_cfg['OS_PROJECT_NAME'],
-                "region_name": os_cfg['OS_REGION_NAME']
+                "region_name": region
             }
 
             self.nova = Client(**credentials)
@@ -24,15 +24,6 @@ class NovaDriver:
 
     def get_vms(self):
         return self.nova.servers.list()
-
-    def create_flavor(self, name, ram, hard, vcpu):
-        """
-        :param name: Descriptive name of the flavor
-        :param ram: Memory in MB for the flavor
-        :param vcpu: Number of VCPUs for the flavor
-        :param hard: Size of local disk in GB
-        """
-        return self.nova.flavors.create(name, ram, hard, vcpu)
 
     def find_flavor(self, **args):
         return self.nova.flavors.find(**args)
