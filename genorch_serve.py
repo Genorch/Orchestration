@@ -14,8 +14,11 @@ def parse(load):
         m = yaml.load(stream)
         for vm in m['project']['vm']:
             provider = m['project']['provider'][vm['provider']]
+
             click.secho('boot vm at %s in %s' % (vm['provider'],
-                                                 provider['region']))
+                                                 provider['region']),
+                        fg="green")
+
             Server(vm['id'], vm['class'], provider['class']).create()
 
 
