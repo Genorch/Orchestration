@@ -18,15 +18,15 @@ project:
 
   topology: # Describe service dependecies
     provider:
-      - savi:
+      - name: "openstack"
         region:
-          - CORE:
+          - name: "CORE"
             vm:
               - id: "1"
                 flavor: "small"
               - id: "2"
                 flavor: "small"
-          - EDGE-TR-1:
+          - name: "EDGE-TR-1"
             vm:
               - id: "3"
                 flavor: "small"
