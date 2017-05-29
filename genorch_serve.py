@@ -13,7 +13,10 @@ def parse(load):
     with open(load) as stream:
         m = yaml.load(stream)
         for vm in m['project']['vm']:
-            Server(vm['id'], vm['class'], 'openstack').create()
+            provider = m['project']['provider'][vm['provider']]
+            click.secho('boot vm at %s in %s' % (vm['provider'],
+                                                 provider['region']))
+            Server(vm['id'], vm['class'], provider['class']).create()
 
 
 if __name__ == '__main__':
