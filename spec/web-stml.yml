@@ -17,12 +17,16 @@ project:
         - "3"
 
   topology: # Describe service dependecies
-    - savi:
-      - CORE:
-        - id: "1"
-          flavor: "small"
-        - id: "2"
-          flavor: "small"
-      - EDGE-TR-1:
-        - id: "3"
-          flavor: "small"
+    provider:
+      - savi:
+        region:
+          - CORE:
+            vm:
+              - id: "1"
+                flavor: "small"
+              - id: "2"
+                flavor: "small"
+          - EDGE-TR-1:
+            vm:
+              - id: "3"
+                flavor: "small"
