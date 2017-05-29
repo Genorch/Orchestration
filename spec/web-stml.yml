@@ -1,21 +1,4 @@
 project:
-  vm:
-    - id: "1"
-      provider: "savi"
-      flavor: "small"
-      region: "CORE"
-
-    - id: "2"
-      provider: "savi"
-      flavor: "small"
-      region: "CORE"
-
-    - id: "3"
-      provider: "savi"
-      flavor: "small"
-      region: "CORE"
-
-
   service: # describe each service with it's associated vm
     - id: "1"
       class: "webserver"
@@ -34,7 +17,12 @@ project:
         - "3"
 
   topology: # Describe service dependecies
-    - id: "1"
-      depend_on:
+    - savi:
+      - CORE:
+        - id: "1"
+          flavor: "small"
         - id: "2"
+          flavor: "small"
+      - EDGE-TR-1:
         - id: "3"
+          flavor: "small"
