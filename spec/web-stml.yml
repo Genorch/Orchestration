@@ -1,27 +1,20 @@
 project:
   vm:
     - id: "1"
-      provider:
-        name: "savi"
-        driver: "open_stack"
-        resouces:
-          ram: "256MB"
-          hard: "20GB"
-          vcpu: 2
-
-        opts: # Storing options for the provider (To be decided)
-          region: "CORE"
-
+      provider: "savi"
+      flavor: "small"
+      region: "CORE"
 
     - id: "2"
-      provider:
-        name: "savi"
-        driver: "open_stack"
-        resouces:
-          flavor: "small"
+      provider: "savi"
+      flavor: "small"
+      region: "CORE"
 
-        opts: # Storing options for the provider (To be decided)
-          region: "CORE"
+    - id: "3"
+      provider: "savi"
+      flavor: "small"
+      region: "CORE"
+
 
   service: # describe each service with it's associated vm
     - id: "1"
