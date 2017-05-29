@@ -12,14 +12,13 @@ from domain.server import Server
 def parse(load):
     with open(load) as stream:
         m = yaml.load(stream)
-        for vm in m['project']['vm']:
-            provider = m['project']['provider'][vm['provider']]
-
-            click.secho('boot vm at %s in %s' % (vm['provider'],
-                                                 provider['region']),
-                        fg="green")
-
-            Server(vm['id'], vm['class'], provider['class']).create()
+        for provider in m['project']['topology']['provider']:
+            for region in provider['region']:
+                for vm in region['vm']:
+                    click.secho('virtual machine => provider: %s, region: %s' %
+                                (provider['name'], region['name']),
+                                fg="green")
+                    Server(vm['id'], vm['flavor'], provider['name']).create()
 
 
 if __name__ == '__main__':
