@@ -29,7 +29,7 @@ class NovaDriver:
         return self.nova.flavors.find(**args)
 
     def boot_vm(self, image_name, flavor_name, network_labels, instance_name):
-        image = self.nova.images.find_image(image_name)
+        image = self.nova.images.find(image_name)
         flavor = self.nova.flavors.find(name=flavor_name)
 
         nics = []
