@@ -7,8 +7,9 @@ class Server:
         self.flavor = flavor
         self.region = region
         self.image = image
-        self.netowrks = networks
+        self.networks = networks
         self.provider = BaseProvider.get(provider)(region)
 
     def create(self):
-        self.provider.create_server(self.image, self.flavor, self._id)
+        self.provider.create_server(
+                self.image, self.flavor, self._id, self.networks)
