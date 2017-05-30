@@ -25,11 +25,17 @@ project:
               - id: "1"
                 flavor: "m1.small"
                 image: "Ubuntu-16-04"
+                networks:
+                  - "ece1548-net"
               - id: "2"
                 flavor: "m1.small"
                 image: "Ubuntu-16-04"
+                networks:
+                  - "ece1548-net"
           - name: "EDGE-TR-1"
             vm:
               - id: "3"
                 flavor: "m1.small"
                 image: "Ubuntu-16-04"
+                networks:
+                  - "ece1548-net"
