@@ -11,4 +11,4 @@ class OpenStackProvider(Provider):
     def create_server(self, image_name, flavor_name, instance_name, networks):
         # TODO ansible initiation, image name and network configuration
         self.nova_driver.boot_vm(
-                image_name, flavor_name, [], instance_name, networks)
+                image_name, flavor_name, networks, instance_name)
