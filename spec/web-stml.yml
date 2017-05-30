@@ -23,13 +23,13 @@ project:
           - name: "CORE"
             vm:
               - id: "1"
-                flavor: "small"
+                flavor: "m1.small"
                 image: "Ubuntu-16-04"
               - id: "2"
-                flavor: "small"
+                flavor: "m1.small"
                 image: "Ubuntu-16-04"
           - name: "EDGE-TR-1"
             vm:
               - id: "3"
-                flavor: "small"
-                image: "ubuntu"
+                flavor: "m1.small"
+                image: "Ubuntu-16-04"
