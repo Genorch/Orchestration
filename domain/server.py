@@ -2,11 +2,12 @@ from providers.base import BaseProvider
 
 
 class Server:
-    def __init__(self, _id, image, flavor, region, provider):
+    def __init__(self, _id, image, flavor, region, provider, networks):
         self._id = _id
         self.flavor = flavor
         self.region = region
         self.image = image
+        self.netowrks = networks
         self.provider = BaseProvider.get(provider)(region)
 
     def create(self):
