@@ -24,10 +24,10 @@ project:
             vm:
               - id: "1"
                 flavor: "small"
-                image: "ubuntu"
+                image: "Ubuntu-16-04"
               - id: "2"
                 flavor: "small"
-                image: "ubuntu"
+                image: "Ubuntu-16-04"
           - name: "EDGE-TR-1"
             vm:
               - id: "3"
