@@ -19,7 +19,7 @@ def parse(load):
                                 (provider['name'], region['name']),
                                 fg="green")
                     Server(vm['id'], vm['image'], vm['flavor'], region['name'],
-                           provider['name']).create()
+                           provider['name'], vm['networks']).create()
 
 
 if __name__ == '__main__':
