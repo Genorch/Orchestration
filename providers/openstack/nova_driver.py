@@ -12,7 +12,7 @@ class NovaDriver:
                 "version": os_cfg['OS_COMPUTE_API_VERSION'],
                 "auth_url": os_cfg['OS_AUTH_URL'],
                 "username": os_cfg['OS_USERNAME'],
-                "password": os_cfg['OS_PASSWORD'],
+                "api_key": os_cfg['OS_PASSWORD'],
                 "project_id": os_cfg['OS_PROJECT_NAME'],
                 "region_name": region
             }
