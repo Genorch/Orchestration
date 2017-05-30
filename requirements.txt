@@ -1,4 +1,4 @@
-python-novaclient
+openstacksdk
 ansible
 click
 pyyaml
