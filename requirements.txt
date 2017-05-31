@@ -1,4 +1,5 @@
-openstacksdk
+python-openstackclient
+python-neutronclient
 ansible
 click
 pyyaml

@@ -18,8 +18,9 @@ def parse(load):
                     click.secho('virtual machine => provider: %s, region: %s' %
                                 (provider['name'], region['name']),
                                 fg="green")
-                    Server(vm['id'], vm['image'], vm['flavor'], region['name'],
-                           provider['name'], vm['networks']).create()
+                    Server(vm['id'], vm['image'], vm['flavor'],
+                           region['name'], provider['name'],
+                           vm['networks']).create()
 
 
 if __name__ == '__main__':
