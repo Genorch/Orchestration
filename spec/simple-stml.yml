@@ -1,0 +1,19 @@
+project:
+  service: # describe each service with it's associated vm
+    - id: "1"
+      class: "webserver"
+      type: "generic"
+      vm:
+        - "1"
+
+  topology: # Describe service dependecies
+    provider:
+      - name: "openstack"
+        region:
+          - name: "CORE"
+            vm:
+              - id: "1"
+                flavor: "m1.small"
+                image: "Ubuntu-16-04"
+                networks:
+                  - "ece1548-net"
