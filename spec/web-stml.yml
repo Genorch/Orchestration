@@ -6,12 +6,12 @@ project:
       vm:
         - "1"
     - id: "2"
-      class: "mysql.yml"
+      playbook: "mysql.yml"
       type: "generic"
       vm:
         - "2"
     - id: "3"
-      class: "haproxy.yml"
+      playbook: "haproxy.yml"
       type: "generic"
       vm:
         - "3"
