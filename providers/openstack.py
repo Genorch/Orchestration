@@ -30,7 +30,6 @@ class OpenStackProvider(Provider):
 
     def create_server(self, image_name, flavor_name, instance_name,
                       network_labels):
-        # TODO ansible initiation, image name and network configuration
         image = self.glance.images.find(name=image_name)
         flavor = self.nova.flavors.find(name=flavor_name)
 
@@ -42,4 +41,7 @@ class OpenStackProvider(Provider):
         instance = self.nova.servers.create(
                 name=instance_name, image=image, flavor=flavor, nics=nics)
 
-        return instance
+        return instance.id
+
+    def ips(self, instance_id):
+        return self.nova.servers.ips(instance_id)
