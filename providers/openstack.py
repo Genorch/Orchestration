@@ -1,4 +1,4 @@
-from ..base import Provider
+from .base import Provider
 
 import json
 import os_client_config
@@ -28,7 +28,18 @@ class OpenStackProvider(Provider):
             print("OpenStack configuration not found.")
             exit()
 
-    def create_server(self, image_name, flavor_name, instance_name, networks):
+    def create_server(self, image_name, flavor_name, instance_name,
+                      network_labels):
         # TODO ansible initiation, image name and network configuration
-        self.nova_driver.boot_vm(
-                image_name, flavor_name, networks, instance_name)
+        image = self.glance.images.find(name=image_name)
+        flavor = self.nova.flavors.find(name=flavor_name)
+
+        nics = []
+        for network_label in network_labels:
+            net = self.neutron.networks.find(label=network_label)
+            nics.append({'net-id': net.id})
+
+        instance = self.nova.servers.create(
+                name=instance_name, image=image, flavor=flavor, nics=nics)
+
+        return instance
