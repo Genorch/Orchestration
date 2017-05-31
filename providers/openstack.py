@@ -36,8 +36,8 @@ class OpenStackProvider(Provider):
 
         nics = []
         for network_label in network_labels:
-            net = self.neutron.networks.find(label=network_label)
-            nics.append({'net-id': net.id})
+            net = self.neutron.list_networks(name=network_label)
+            nics.append({'net-id': net['networks'][0]['id']})
 
         instance = self.nova.servers.create(
                 name=instance_name, image=image, flavor=flavor, nics=nics)
