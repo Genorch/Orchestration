@@ -1,17 +1,17 @@
 project:
   service: # describe each service with it's associated vm
     - id: "1"
-      class: "webserver"
+      playbook: "apache.yml"
       type: "generic"
       vm:
         - "1"
     - id: "2"
-      class: "db"
+      class: "mysql.yml"
       type: "generic"
       vm:
         - "2"
     - id: "3"
-      class: "loadbalancer"
+      class: "haproxy.yml"
       type: "generic"
       vm:
         - "3"
