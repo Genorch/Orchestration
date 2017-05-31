@@ -1,5 +1,6 @@
 {
     "ANSIBLE_CONFIG": "/path/to/ansible.cfg",
     "REMOTE_USER": "remote_user",
-    "PRIVATE_SSH_KEY": "/path/to/private.key"
+    "PRIVATE_SSH_KEY": "/path/to/private.key",
+    "BECOME_USER_PASS": "fully_fake_password"
 }
