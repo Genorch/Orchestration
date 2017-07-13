@@ -27,7 +27,7 @@ class Ansible:
 
     def execute(self):
         pbex = PlaybookExecutor(
-                playbooks=['playbooks/apache.yml'],
+                playbooks=['/home/iman/Documents/Git/Orchestration/service_providers/ansible_driver/playbooks/apache.yml'],
                 inventory=self.inventory,
                 variable_manager=self.variable_manager,
                 loader=self.loader,
