@@ -5,6 +5,8 @@ from ansible.inventory import Inventory
 from ansible.vars import VariableManager
 from ansible.parsing.dataloader import DataLoader
 
+from .options import Options
+
 
 class Ansible:
 
@@ -13,7 +15,7 @@ class Ansible:
         self.variable_manager = VariableManager()
         self.loader = DataLoader()
         self.passwords = {}
-        self.options = {}
+        self.options = Options()
         self.inventory = Inventory(
                 loader=self.loader,
                 variable_manager=self.variable_manager,
