@@ -112,4 +112,5 @@ celerybeat-schedule
 config/os.json
 config/ansible.json
 config/ansible.cfg
+*.retry
 
