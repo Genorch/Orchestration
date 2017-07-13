@@ -111,3 +111,5 @@ celerybeat-schedule
 # Project Specific Files
 config/os.json
 config/ansible.json
+config/ansible.cfg
+
