@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from ansible.executor.playbook_executor import PlaybookExecutor
 from ansible.inventory import Inventory
@@ -13,12 +13,14 @@ class Ansible:
         self.variable_manager = VariableManager()
         self.loader = DataLoader()
         self.passwords = {}
+        self.options = {}
         self.inventory = Inventory(
                 loader=self.loader,
                 variable_manager=self.variable_manager,
-                host_list=self.options.inventory
+                host_list=['localhost']
                 )
 
+        self.options.hostlist = ['localhost']
         self.variable_manager.set_inventory(self.inventory)
 
     def execute(self):
@@ -27,6 +29,7 @@ class Ansible:
                 inventory=self.inventory,
                 variable_manager=self.variable_manager,
                 loader=self.loader,
-                options="", passwords=self.passwords
+                options=self.options,
+                passwords=self.passwords
                 )
         pbex.run()
