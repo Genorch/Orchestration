@@ -18,4 +18,4 @@ class Server:
 
     @property
     def ips(self):
-        print(self.provider.ips(self._id))
+        return self.provider.ips(self._id)
