@@ -6,6 +6,7 @@ from ansible.vars import VariableManager
 from ansible.parsing.dataloader import DataLoader
 
 from .options import Options
+from ....config import cfg
 
 
 class Ansible:
@@ -16,26 +17,25 @@ class Ansible:
         self.loader = DataLoader()
         self.passwords = {}
         self.options = Options()
-        self.options.verbosity = 5
-        self.options.become_method = 'sudo'
-        self.options.become_user = 'root'
+        self.options.become_method = cfg['BECOME_METHOD']
+        self.options.become_user = cfg['BECOME_USER']
         self.options.become = True
-        self.options.private_key_file = '/home/iman/.ssh/id_rsa'
-        self.options.connection = 'ssh'
+        self.options.private_key_file = cfg['PRIVATE_SSH_KEY']
+        self.options.connection = cfg['CONNECTION']
 
         self.inventory = Inventory(
                 loader=self.loader,
                 variable_manager=self.variable_manager,
                 host_list=['localhost']
                 )
+        self.passwords = {'become_pass': cfg['BECOME_PASS']}
 
         self.options.hostlist = ['localhost']
         self.variable_manager.set_inventory(self.inventory)
 
-    def execute(self):
-        playbook = '/home/iman/Documents/Git/Orchestration/service_providers/ansible_driver/playbooks/apache.yml'
+    def execute(self, playbooks):
         pbex = PlaybookExecutor(
-                playbooks=[playbook],
+                playbooks=playbooks,
                 inventory=self.inventory,
                 variable_manager=self.variable_manager,
                 loader=self.loader,
