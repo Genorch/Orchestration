@@ -16,6 +16,13 @@ class Ansible:
         self.loader = DataLoader()
         self.passwords = {}
         self.options = Options()
+        self.options.verbosity = 5
+        self.options.become_method = 'sudo'
+        self.options.become_user = 'root'
+        self.options.become = True
+        self.options.private_key_file = '/home/iman/.ssh/id_rsa'
+        self.options.connection = 'ssh'
+
         self.inventory = Inventory(
                 loader=self.loader,
                 variable_manager=self.variable_manager,
@@ -26,8 +33,9 @@ class Ansible:
         self.variable_manager.set_inventory(self.inventory)
 
     def execute(self):
+        playbook = '/home/iman/Documents/Git/Orchestration/service_providers/ansible_driver/playbooks/apache.yml'
         pbex = PlaybookExecutor(
-                playbooks=['/home/iman/Documents/Git/Orchestration/service_providers/ansible_driver/playbooks/apache.yml'],
+                playbooks=[playbook],
                 inventory=self.inventory,
                 variable_manager=self.variable_manager,
                 loader=self.loader,
