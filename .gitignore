@@ -110,7 +110,7 @@ celerybeat-schedule
 
 # Project Specific Files
 config/os.json
-config/ansible.json
+config/ansible.ini
 config/ansible.cfg
 *.retry
 
