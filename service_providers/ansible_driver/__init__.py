@@ -6,7 +6,7 @@ from ansible.vars import VariableManager
 from ansible.parsing.dataloader import DataLoader
 
 from .options import Options
-from ....config import cfg
+from ...config import cfg
 
 
 class Ansible:
