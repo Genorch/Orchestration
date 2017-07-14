@@ -9,3 +9,9 @@ class Config:
 
     def __getattr__(self, name):
         return self.parser['DEFAULT'][name]
+
+
+"""
+Always return an instance of Config
+"""
+cfg = Config
