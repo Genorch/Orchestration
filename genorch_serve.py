@@ -4,6 +4,7 @@ import yaml
 import click
 
 from domain.server import Server
+from service_providers.ansible_driver import Ansible
 
 
 @click.command()
@@ -23,5 +24,14 @@ def parse(load):
                            vm['networks']).create()
 
 
+@click.command()
+def ansible():
+    ansible = Ansible()
+    ansible.execute([
+        '/home/iman/Documents/Git/Orchestration' +
+        '/service_providers/ansible_driver/playbooks/apache.yml']
+        )
+
+
 if __name__ == '__main__':
-    parse()
+    ansible()
