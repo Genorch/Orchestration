@@ -113,4 +113,5 @@ config/os.json
 config/ansible.ini
 config/ansible.cfg
 *.retry
+db/
 
