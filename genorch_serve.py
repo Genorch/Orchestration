@@ -3,8 +3,10 @@
 import yaml
 import click
 
+from tinydb import TinyDB
+
 from domain.server import Server
-from service_providers.ansible_driver import Ansible
+from domain.service import Service
 
 
 @click.command()
@@ -23,15 +25,12 @@ def parse(load):
                            region['name'], provider['name'],
                            vm['networks']).create()
 
-
-@click.command()
-def ansible():
-    ansible = Ansible()
-    ansible.execute([
-        '/home/iman/Documents/Git/Orchestration' +
-        '/service_providers/ansible_driver/playbooks/apache.yml']
-        )
+        for service in m['project']['service']:
+            click.secho('service => playbook: %s, type: %s' %
+                        (service['playbook'], service['type']),
+                        fg="red")
+            Service(service['playbook'], service['vms'])
 
 
 if __name__ == '__main__':
-    ansible()
+    parse()
