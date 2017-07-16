@@ -5,16 +5,6 @@ project:
       type: "generic"
       targets:
         - "1"
-    - id: "2"
-      playbook: "mysql.yml"
-      type: "generic"
-      targets:
-        - "2"
-    - id: "3"
-      playbook: "haproxy.yml"
-      type: "generic"
-      targets:
-        - "3"
 
   topology: # Describe service dependecies
     provider:
@@ -25,19 +15,12 @@ project:
               - id: "1"
                 flavor: "m1.small"
                 image: "Ubuntu-16-04"
-                key: "iman_key"
+                key: "tosca_key"
                 networks:
                   - "ece1548-net"
               - id: "2"
                 flavor: "m1.small"
                 image: "Ubuntu-16-04"
-                networks:
-                  - "ece1548-net"
-          - name: "EDGE-TR-1"
-            vm:
-              - id: "3"
-                flavor: "m1.small"
-                image: "Ubuntu-16-04"
-                key: "iman_key"
+                key: "tosca_key"
                 networks:
                   - "ece1548-net"
