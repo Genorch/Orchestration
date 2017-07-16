@@ -43,5 +43,8 @@ class OpenStackProvider(Provider):
 
         return instance.id
 
+    def delete_server(self, _id):
+        self.nova.servers.get(_id).delete()
+
     def ips(self, instance_id):
         return self.nova.servers.ips(instance_id)
