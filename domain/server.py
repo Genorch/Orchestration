@@ -1,5 +1,5 @@
 from providers.base import BaseProvider
-from ..database import db
+from database import db
 
 
 class Server:
