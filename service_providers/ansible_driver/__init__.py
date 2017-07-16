@@ -27,13 +27,14 @@ class Ansible:
 
     def create_service(self, playbooks, hostslist=['localhost']):
 
-        self.options.listhosts = hostslist
-        self.variable_manager.set_inventory(self.inventory)
         inventory = Inventory(
             loader=self.loader,
             variable_manager=self.variable_manager,
             host_list=hostslist
         )
+
+        self.options.listhosts = hostslist
+        self.variable_manager.set_inventory(inventory)
 
         pbex = PlaybookExecutor(
                 playbooks=playbooks,
