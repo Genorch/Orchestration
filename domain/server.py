@@ -16,8 +16,9 @@ class Server:
     def truncate():
         vms = db.vms.all()
         for vm in vms:
-            provider = BaseProvider.get(vm.provider)(vm.region)
-            provider.get(vm['_id']).delete()
+            provider = BaseProvider.get(vm['provider'])(vm['region'])
+            provider.delete_server(vm['_id'])
+            db.vms.remove(eids=[vm.eid])
 
     def create(self):
         self._id = self.provider.create_server(
@@ -27,14 +28,14 @@ class Server:
 
         # Store the created VM inside database
         db.vms.insert({
+            "_id": self._id,
             "name": self.name,
             "flavor": self.flavor,
             "region": self.region,
             "image": self.image,
             "networks": self.networks,
             "ips": self.ips,
-            "provider": self.provider.name,
-            "_id": self._id
+            "provider": self.provider.name
             })
 
     def delete(self):
