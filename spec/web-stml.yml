@@ -3,17 +3,17 @@ project:
     - id: "1"
       playbook: "apache.yml"
       type: "generic"
-      vm:
+      targets:
         - "1"
     - id: "2"
       playbook: "mysql.yml"
       type: "generic"
-      vm:
+      targets:
         - "2"
     - id: "3"
       playbook: "haproxy.yml"
       type: "generic"
-      vm:
+      targets:
         - "3"
 
   topology: # Describe service dependecies
