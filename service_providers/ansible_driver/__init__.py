@@ -8,6 +8,7 @@ from ansible.parsing.dataloader import DataLoader
 from .options import Options
 from config import cfg
 
+
 class Ansible:
 
     def __init__(self):
@@ -22,20 +23,21 @@ class Ansible:
         self.options.private_key_file = cfg.PRIVATE_SSH_KEY
         self.options.connection = cfg.CONNECTION
 
-        self.inventory = Inventory(
-                loader=self.loader,
-                variable_manager=self.variable_manager,
-                host_list=['localhost']
-                )
         self.passwords = {'become_pass': cfg.BECOME_PASS}
 
-        self.options.hostlist = ['localhost']
-        self.variable_manager.set_inventory(self.inventory)
+    def create_service(self, playbooks, hostslist=['localhost']):
 
-    def execute(self, playbooks):
+        self.options.listhosts = hostslist
+        self.variable_manager.set_inventory(self.inventory)
+        inventory = Inventory(
+            loader=self.loader,
+            variable_manager=self.variable_manager,
+            host_list=hostslist
+        )
+
         pbex = PlaybookExecutor(
                 playbooks=playbooks,
-                inventory=self.inventory,
+                inventory=inventory,
                 variable_manager=self.variable_manager,
                 loader=self.loader,
                 options=self.options,
