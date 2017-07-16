@@ -11,7 +11,7 @@ from config import cfg
 
 class Ansible:
 
-    def __init__(self):
+    def __init__(self, hostlist):
 
         self.variable_manager = VariableManager()
         self.loader = DataLoader()
@@ -23,22 +23,20 @@ class Ansible:
         self.options.private_key_file = cfg.PRIVATE_SSH_KEY
         self.options.connection = cfg.CONNECTION
 
+        self.inventory = Inventory(
+                loader=self.loader,
+                variable_manager=self.variable_manager,
+                host_list=hostlist
+                )
         self.passwords = {'become_pass': cfg.BECOME_PASS}
 
-    def create_service(self, playbook, hostslist=['localhost']):
+        self.options.hostlist = hostlist
+        self.variable_manager.set_inventory(self.inventory)
 
-        inventory = Inventory(
-            loader=self.loader,
-            variable_manager=self.variable_manager,
-            host_list=hostslist
-        )
-
-        self.options.listhosts = hostslist
-        self.variable_manager.set_inventory(inventory)
-
+    def create_service(self, playbook):
         pbex = PlaybookExecutor(
                 playbooks=[playbook],
-                inventory=inventory,
+                inventory=self.inventory,
                 variable_manager=self.variable_manager,
                 loader=self.loader,
                 options=self.options,

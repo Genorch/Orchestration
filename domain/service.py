@@ -4,7 +4,7 @@ from tinydb import where
 
 
 class Service:
-    def __init__(self, name, targets, provider=Ansible()):
+    def __init__(self, name, targets):
         self.name = name
 
         ips = []
@@ -15,7 +15,7 @@ class Service:
                 ips.append(network_intefaces[nic][0]['addr'])
 
         self.targets = ips
-        self.provider = provider
+        self.provider = Ansible(self.targets)
 
     def create(self):
-        self.provider.create_service(self.name, self.targets)
+        self.provider.create_service(self.name)
