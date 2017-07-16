@@ -25,7 +25,7 @@ class Ansible:
 
         self.passwords = {'become_pass': cfg.BECOME_PASS}
 
-    def create_service(self, playbooks, hostslist=['localhost']):
+    def create_service(self, playbook, hostslist=['localhost']):
 
         inventory = Inventory(
             loader=self.loader,
@@ -37,7 +37,7 @@ class Ansible:
         self.variable_manager.set_inventory(inventory)
 
         pbex = PlaybookExecutor(
-                playbooks=playbooks,
+                playbooks=[playbook],
                 inventory=inventory,
                 variable_manager=self.variable_manager,
                 loader=self.loader,
