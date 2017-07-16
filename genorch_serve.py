@@ -27,7 +27,7 @@ def parse(load):
             click.secho('service => playbook: %s, type: %s' %
                         (service['playbook'], service['type']),
                         fg="red")
-            Service(service['playbook'], service['vms'])
+            Service(service['playbook'], service['targets']).create()
 
 
 if __name__ == '__main__':
