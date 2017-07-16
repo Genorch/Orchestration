@@ -7,5 +7,5 @@ class Service:
         self.targets = targets
         self.provider = Ansible()
 
-    def create_service(self):
+    def create(self):
         self.provider.create_service(self.name, self.targets)
