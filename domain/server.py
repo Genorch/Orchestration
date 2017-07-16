@@ -23,6 +23,8 @@ class Server:
         self._id = self.provider.create_server(
             self.image, self.flavor, self.name, self.networks)
 
+        while self.ips == {}: pass
+
         # Store the created VM inside database
         db.vms.insert({
             "name": self.name,
@@ -34,6 +36,9 @@ class Server:
             "provider": self.provider.name,
             "_id": self._id
             })
+
+    def delete(self):
+        self.provider.delete_server(self._id)
 
     @property
     def ips(self):
