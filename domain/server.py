@@ -3,9 +3,9 @@ from database import db
 
 
 class Server:
-    def __init__(self, _id, image, flavor, region, provider, networks):
+    def __init__(self, name, image, flavor, region, provider, networks):
         self._id = None
-        self.name = _id
+        self.name = name
         self.flavor = flavor
         self.region = region
         self.image = image
