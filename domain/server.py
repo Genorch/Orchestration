@@ -3,13 +3,14 @@ from database import db
 
 
 class Server:
-    def __init__(self, name, image, flavor, region, provider, networks):
+    def __init__(self, name, image, flavor, region, provider, networks, key=None):
         self._id = None
         self.name = name
         self.flavor = flavor
         self.region = region
         self.image = image
         self.networks = networks
+        self.key = key
         self.provider = BaseProvider.get(provider)(region)
 
     @staticmethod
@@ -22,12 +23,12 @@ class Server:
 
     def create(self):
         self._id = self.provider.create_server(
-            self.image, self.flavor, self.name, self.networks)
+            self.image, self.flavor, self.name, self.networks, self.key)
 
         while self.ips == {}: pass
 
         # Store the created VM inside database
-        db.vms.insert({
+        vm_data = {
             "_id": self._id,
             "name": self.name,
             "flavor": self.flavor,
@@ -36,7 +37,12 @@ class Server:
             "networks": self.networks,
             "ips": self.ips,
             "provider": self.provider.name
-            })
+            }
+
+        if self.key is not None:
+            vm_data['key'] = self.key
+
+        db.vms.insert(vm_data)
 
     def delete(self):
         self.provider.delete_server(self._id)

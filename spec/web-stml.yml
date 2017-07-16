@@ -25,6 +25,7 @@ project:
               - id: "1"
                 flavor: "m1.small"
                 image: "Ubuntu-16-04"
+                key: "iman_key"
                 networks:
                   - "ece1548-net"
               - id: "2"
@@ -37,5 +38,6 @@ project:
               - id: "3"
                 flavor: "m1.small"
                 image: "Ubuntu-16-04"
+                key: "iman_key"
                 networks:
                   - "ece1548-net"
