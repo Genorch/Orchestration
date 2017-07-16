@@ -3,8 +3,6 @@
 import yaml
 import click
 
-from tinydb import TinyDB
-
 from domain.server import Server
 from domain.service import Service
 
@@ -23,7 +21,7 @@ def parse(load):
                                 fg="green")
                     Server(vm['id'], vm['image'], vm['flavor'],
                            region['name'], provider['name'],
-                           vm['networks']).create()
+                           vm['networks'], vm.get('key', None)).create()
 
         for service in m['project']['service']:
             click.secho('service => playbook: %s, type: %s' %
