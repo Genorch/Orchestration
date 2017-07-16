@@ -1,4 +1,5 @@
 from providers.base import BaseProvider
+from ..database import db
 
 
 class Server:
@@ -12,9 +13,15 @@ class Server:
         self.provider = BaseProvider.get(provider)(region)
 
     def create(self):
-        # TODO ansible initiation
         self._id = self.provider.create_server(
             self.image, self.flavor, self.name, self.networks)
+        db.vms.insert({
+            "name": self.name,
+            "flavor": self.flavor,
+            "region": self.region,
+            "image": self.image,
+            "networks": self.networks,
+            "ips": self.ips})
 
     @property
     def ips(self):
