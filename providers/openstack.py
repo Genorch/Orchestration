@@ -29,7 +29,7 @@ class OpenStackProvider(Provider):
             exit()
 
     def create_server(self, image_name, flavor_name, instance_name,
-                      network_labels):
+                      network_labels, key_name=None):
         image = self.glance.images.find(name=image_name)
         flavor = self.nova.flavors.find(name=flavor_name)
 
@@ -39,7 +39,7 @@ class OpenStackProvider(Provider):
             nics.append({'net-id': net['networks'][0]['id']})
 
         instance = self.nova.servers.create(
-                name=instance_name, image=image, flavor=flavor, nics=nics)
+                name=instance_name, image=image, flavor=flavor, nics=nics, key_name=key_name)
 
         return instance.id
 
