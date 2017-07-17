@@ -6,6 +6,9 @@ import click
 from domain.server import Server
 from domain.service import Service
 
+from database import db
+from tinydb import where
+
 
 @click.command()
 @click.option('--load', prompt='YAML file',
@@ -19,9 +22,13 @@ def parse(load):
                     click.secho('virtual machine => provider: %s, region: %s' %
                                 (provider['name'], region['name']),
                                 fg="green")
-                    Server(vm['id'], vm['image'], vm['flavor'],
-                           region['name'], provider['name'],
-                           vm['networks'], vm.get('key', None)).create()
+
+                    servers = db.vms.search(where('name') == vm['id'])
+
+                    if len(servers) > 0:
+                        Server(vm['id'], vm['image'], vm['flavor'],
+                               region['name'], provider['name'],
+                               vm['networks'], vm.get('key', None)).create()
 
         for service in m['project']['service']:
             click.secho('service => playbook: %s, type: %s' %
