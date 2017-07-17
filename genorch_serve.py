@@ -25,7 +25,7 @@ def parse(load):
 
                     servers = db.vms.search(where('name') == vm['id'])
 
-                    if len(servers) > 0:
+                    if len(servers) == 0:
                         Server(vm['id'], vm['image'], vm['flavor'],
                                region['name'], provider['name'],
                                vm['networks'], vm.get('key', None)).create()
