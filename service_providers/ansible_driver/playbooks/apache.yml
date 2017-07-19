@@ -1,8 +1,8 @@
 ---
   - hosts: all
     tasks:
-    - name: Install apache
-      action: >
-        {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
-      with_items:
-        - apache2
+      - name: Install the package apache2
+        apt:
+          name: apache2
+          update_cache: yes
+          state: present
