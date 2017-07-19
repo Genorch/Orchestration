@@ -35,7 +35,7 @@ class Ansible:
 
     def create_service(self, playbook):
         pbex = PlaybookExecutor(
-                playbooks=[playbook],
+                playbooks=['service_providers/anisble_driver/playbooks/' + playbook],
                 inventory=self.inventory,
                 variable_manager=self.variable_manager,
                 loader=self.loader,
