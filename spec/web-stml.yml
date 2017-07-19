@@ -1,7 +1,7 @@
 project:
   service: # describe each service with it's associated vm
     - id: "1"
-      playbook: "apache.yml"
+      playbook: "init.yml"
       type: "generic"
       targets:
         - "1"

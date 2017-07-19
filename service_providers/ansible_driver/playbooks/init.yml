@@ -1,0 +1,9 @@
+---
+  - hosts: all
+    tasks:
+      - name: reboot the system when package is upgraded
+        command: /sbin/shutdown -r now "Ansible system package upgraded" && sleep 1
+
+      - name: reboot the system when package is upgraded
+        command: dpkg configure -a
+
