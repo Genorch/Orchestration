@@ -1,8 +1,8 @@
 ---
   - hosts: all
     tasks:
-      name: remove apt lock file
-      command: rm /var/lib/apt/lists/lock
+      - name: remove apt lock file
+        command: rm /var/lib/apt/lists/lock
 
 
 
