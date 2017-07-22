@@ -1,3 +1,4 @@
+from domain.service import Service
 from providers.base import BaseProvider
 from database import db
 
@@ -39,9 +40,16 @@ class Server:
             "provider": self.provider.name
             }
 
+        """
+        Whether it has key pair or not
+        """
         if self.key is not None:
             vm_data['key'] = self.key
 
+        """
+        Initialize each vm after creation
+        """
+        Service("init.yml", self.name).create()
         db.vms.insert(vm_data)
 
     def delete(self):
