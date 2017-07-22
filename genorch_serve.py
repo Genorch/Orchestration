@@ -41,6 +41,6 @@ def parse(load):
             Service(service['playbook'], service['targets']).create()
 
 
-
-
-
+@cli.command()
+def truncate():
+    Server.truncate()
