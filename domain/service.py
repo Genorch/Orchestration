@@ -9,10 +9,10 @@ class Service:
 
         ips = []
         for vm in targets:
-            network_intefaces = db.vms.search(where('name') == vm)[0]['ips']
-            print(network_intefaces)
-            for nic in network_intefaces:
-                ips.append(network_intefaces[nic][0]['addr'])
+            network_interfaces = db.vms.search(where('name') == vm)[0]['ips']
+            print(network_interfaces)
+            for nic in network_interfaces:
+                ips.append(network_interfaces[nic][0]['addr'])
 
         self.targets = ips
         self.provider = Ansible(self.targets)
