@@ -9,8 +9,12 @@ from domain.service import Service
 from database import db
 from tinydb import where
 
+@click.group()
+@click.version_option('0.0.1')
+def cli():
+    pass
 
-@click.command()
+@cli.command()
 @click.option('--load', prompt='YAML file',
               help='Target yaml file to parse')
 def parse(load):
@@ -37,5 +41,6 @@ def parse(load):
             Service(service['playbook'], service['targets']).create()
 
 
-if __name__ == '__main__':
-    parse()
+
+
+
