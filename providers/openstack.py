@@ -1,6 +1,6 @@
 from .base import Provider
+from config import cfg
 
-import json
 import os_client_config
 
 
@@ -9,7 +9,7 @@ class OpenStackProvider(Provider):
 
     def __init__(self, region):
         try:
-            os_cfg = json.load(open('config/os.json'))
+            os_cfg = cfg['openstack']
 
             credentials = {
                 "version": os_cfg['OS_COMPUTE_API_VERSION'],
