@@ -6,8 +6,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='genorch',
-    version='0.0.1',
-    py_modules=['genorch_serve'],
+    version='0.0.2',
     packages=find_packages(),
     include_package_data=True,
     install_requires=required,
