@@ -6,10 +6,11 @@ from ansible.vars import VariableManager
 from ansible.parsing.dataloader import DataLoader
 
 from .options import Options
+from ..base import ServiceProvider
 from config import cfg
 
 
-class Ansible:
+class Ansible(ServiceProvider):
 
     def __init__(self, hostlist):
 
@@ -35,7 +36,8 @@ class Ansible:
 
     def create_service(self, playbook):
         pbex = PlaybookExecutor(
-                playbooks=['service_providers/ansible_driver/playbooks/' + playbook],
+                playbooks=['service_providers/ansible_driver/playbooks/' +
+                           playbook],
                 inventory=self.inventory,
                 variable_manager=self.variable_manager,
                 loader=self.loader,
