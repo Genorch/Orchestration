@@ -1,33 +1,5 @@
 project:
   service: # describe each service with it's associated vm
-    - id: "1"
-      provider: "ansible"
-      type: "generic"
-      targets:
-        - "1"
-      opts:
-        playbook: "init.yml"
-    - id: "2"
-      provider: "ansible"
-      type: "generic"
-      targets:
-        - "1"
-      opts:
-        playbook: "docker.yml"
-    - id: "3"
-      provider: "ansible"
-      type: "generic"
-      targets:
-        - "1"
-      opts:
-        playbook: "init.yml"
-    - id: "4"
-      provider: "ansible"
-      type: "generic"
-      targets:
-        - "1"
-      opts:
-        playbook: "docker.yml"
     - id: "5"
       provider: "docker"
       type: "generic"

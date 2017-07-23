@@ -3,7 +3,7 @@
 from ..base import ServiceProvider
 from config import cfg
 
-from docker import Client
+import docker
 
 
 class Docker(ServiceProvider):
@@ -14,5 +14,5 @@ class Docker(ServiceProvider):
 
     def create_service(self, opts):
         for target in self.targets:
-            client = Client(target + ":2379")
-            client.containers.run(**opts, detach=True)
+            docker_client = docker.DockerClient(target + ":2379")
+            docker_client.containers.run(**opts, detach=True)

@@ -4,5 +4,5 @@ ansible
 click
 pyyaml
 tinydb
-docker-py
+docker
 Jinja2
