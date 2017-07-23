@@ -35,10 +35,10 @@ def parse(load):
                                vm['networks'], vm.get('key', None)).create()
 
         for service in m['project']['service']:
-            click.secho('service => playbook: %s, type: %s' %
-                        (service['playbook'], service['type']),
-                        fg="red")
-            Service(service['playbook'], service['targets']).create()
+            click.secho('service => provider: %s, type: %s' %
+                        (service['provider'], service['type']),
+                        fg="blue")
+            Service(service['provider'], service['targets'], service['opts']).create()
 
 
 @cli.command()
