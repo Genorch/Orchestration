@@ -8,6 +8,8 @@ from docker import Client
 
 class Docker(ServiceProvider):
 
+    name="docker"
+
     def __init__(self, targets):
         self.targets = targets
 
