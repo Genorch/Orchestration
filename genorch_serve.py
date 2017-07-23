@@ -2,6 +2,7 @@
 
 import yaml
 import click
+from jinja2 import Template, Environment, FileSystemLoader
 
 from domain.server import Server
 from domain.service import Service
@@ -19,7 +20,10 @@ def cli():
               help='Target yaml file to parse')
 def parse(load):
     with open(load) as stream:
-        m = yaml.load(stream)
+        m = Environment(
+            loader=FileSystemLoader('./')
+        ).get_template(load).render()
+        m = yaml.load(m)
         for provider in m['project']['topology']['provider']:
             for region in provider['region']:
                 for vm in region['vm']:
