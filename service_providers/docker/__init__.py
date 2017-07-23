@@ -14,5 +14,5 @@ class Docker(ServiceProvider):
 
     def create_service(self, opts):
         for target in self.targets:
-            docker_client = docker.DockerClient(target + ":2379")
+            docker_client = docker.DockerClient("tcp://" + target + ":8000")
             docker_client.containers.run(**opts, detach=True)
