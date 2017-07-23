@@ -14,15 +14,12 @@ project:
         region:
           - name: "CORE"
             vm:
-              - id: "1"
+              {% for i in range(3) %}
+
+              - id: "{{i}}"
                 flavor: "m1.small"
                 image: "Ubuntu-16-04"
                 key: "tosca_key"
                 networks:
                   - "ece1548-net"
-              - id: "2"
-                flavor: "m1.small"
-                image: "Ubuntu-16-04"
-                key: "tosca_key"
-                networks:
-                  - "ece1548-net"
+              {% endfor %}
