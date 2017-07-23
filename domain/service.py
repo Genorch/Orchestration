@@ -1,6 +1,5 @@
-from database import db
-from tinydb import where
 from service_providers.base import BaseServiceProvider
+from utils import common
 
 
 class Service:
@@ -9,9 +8,7 @@ class Service:
 
         ips = []
         for vm in targets:
-            network_interfaces = db.vms.search(where('name') == vm)[0]['ips']
-            for nic in network_interfaces:
-                ips.append(network_interfaces[nic][0]['addr'])
+            ips.append(common.translate_id(vm))
 
         self.targets = ips
         self.provider = BaseServiceProvider.get(provider)(self.targets)
