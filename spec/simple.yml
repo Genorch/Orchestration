@@ -1,10 +1,17 @@
 project:
   service: # describe each service with it's associated vm
-    - id: "1"
-      class: "webserver"
+    - id: "5"
+      provider: "docker"
       type: "generic"
-      vm:
+      targets:
         - "1"
+      opts:
+        image: "nginx"
+        sth:
+          - {{ translate_id("1") }}
+        ports:
+          80/tcp: 80
+
 
   topology: # Describe service dependecies
     provider:
@@ -12,8 +19,12 @@ project:
         region:
           - name: "CORE"
             vm:
-              - id: "1"
+              {% for i in range(3) %}
+
+              - id: "{{i}}"
                 flavor: "m1.small"
                 image: "Ubuntu-16-04"
+                key: "tosca_key"
                 networks:
                   - "ece1548-net"
+              {% endfor %}

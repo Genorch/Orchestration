@@ -6,6 +6,7 @@ from jinja2 import Template, Environment, FileSystemLoader
 
 from domain.server import Server
 from domain.service import Service
+from utils.common import translate_id
 
 from database import db
 from tinydb import where
@@ -20,9 +21,13 @@ def cli():
               help='Target yaml file to parse')
 def parse(load):
     with open(load) as stream:
-        m = Environment(
+        env = Environment(
             loader=FileSystemLoader('./')
-        ).get_template(load).render()
+        )
+        env.globals.update(translate_id=translate_id)
+
+        m = env.get_template(load).render()
+
         m = yaml.load(m)
         for provider in m['project']['topology']['provider']:
             for region in provider['region']:
