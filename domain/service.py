@@ -14,7 +14,7 @@ class Service:
                 ips.append(network_interfaces[nic][0]['addr'])
 
         self.targets = ips
-        self.provider = BaseServiceProvider.get(provider)(targets)
+        self.provider = BaseServiceProvider.get(provider)(self.targets)
 
     def create(self):
         self.provider.create_service(self.opts)
