@@ -12,6 +12,6 @@ setup(
     install_requires=required,
     entry_points='''
         [console_scripts]
-        genorch_serve=genorch_serve:cli
+        genorch=genorch_serve:cli
     ''',
 )
