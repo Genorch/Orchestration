@@ -5,3 +5,4 @@ click
 pyyaml
 tinydb
 docker-py
+Jinja2
