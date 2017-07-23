@@ -3,11 +3,15 @@
 from ..base import ServiceProvider
 from config import cfg
 
-import docker
+from docker import Client
 
 
 class Docker(ServiceProvider):
 
-    def __init__(self):
-        self.client = docker.Client(cfg['docker']['base_url'])
+    def __init__(self, targets):
+        self.targets = targets
 
+    def create_service(self, opts):
+        for target in self.targets:
+            client = Client(target)
+            client.containers.run(**opts, detach=True)
