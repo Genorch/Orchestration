@@ -1,10 +1,12 @@
 project:
   service: # describe each service with it's associated vm
     - id: "1"
-      playbook: "init.yml"
+      provider: "ansible"
       type: "generic"
       targets:
         - "1"
+      opts:
+        playbook: "init.yml"
 
   topology: # Describe service dependecies
     provider:
