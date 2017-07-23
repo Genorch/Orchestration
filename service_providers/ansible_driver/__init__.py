@@ -11,8 +11,9 @@ from config import cfg
 
 
 class Ansible(ServiceProvider):
+    name = "ansible"
 
-    def __init__(self, hostlist):
+    def __init__(self, targets):
 
         self.variable_manager = VariableManager()
         self.loader = DataLoader()
@@ -27,17 +28,17 @@ class Ansible(ServiceProvider):
         self.inventory = Inventory(
                 loader=self.loader,
                 variable_manager=self.variable_manager,
-                host_list=hostlist
+                host_list=targets
                 )
         self.passwords = {'become_pass': cfg.BECOME_PASS}
 
-        self.options.hostlist = hostlist
+        self.options.hostlist = targets
         self.variable_manager.set_inventory(self.inventory)
 
-    def create_service(self, playbook):
+    def create_service(self, opts):
         pbex = PlaybookExecutor(
                 playbooks=['service_providers/ansible_driver/playbooks/' +
-                           playbook],
+                           opts['playbook']],
                 inventory=self.inventory,
                 variable_manager=self.variable_manager,
                 loader=self.loader,
