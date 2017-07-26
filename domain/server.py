@@ -1,7 +1,7 @@
 from domain.service import Service
 from providers.base import BaseProvider
 from database import db
-from subprocess import call
+from os import system
 from utils import common
 
 
@@ -58,7 +58,7 @@ class Server:
         ips = []
         ips.extend(common.translate_id(self.name))
         for ip in ips:
-            print(call(["ssh -f \"~/.ssh/known_hosts\" -R ", ip]))
+            print(system("ssh -f ~/.ssh/known_hosts -R " + ip))
 
 
     @property
