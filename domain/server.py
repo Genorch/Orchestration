@@ -3,6 +3,7 @@ from providers.base import BaseProvider
 from database import db
 from os import system
 from utils import common
+import click
 
 
 class Server:
@@ -22,6 +23,13 @@ class Server:
         for vm in vms:
             provider = BaseProvider.get(vm['provider'])(vm['region'])
             provider.delete_server(vm['_id'])
+            click.secho('server => provider: %s, id: %s' %
+                    (vm['provider'], vm['name']),
+                    fg="red")
+            ips = []
+            ips.extend(common.translate_id(vm['name']))
+            for ip in ips:
+                system("ssh-keygen -f ~/.ssh/known_hosts -R " + ip)
             db.vms.remove(eids=[vm.eid])
 
     def create(self):
@@ -55,11 +63,6 @@ class Server:
 
     def delete(self):
         self.provider.delete_server(self._id)
-        ips = []
-        ips.extend(common.translate_id(self.name))
-        for ip in ips:
-            print(system("ssh -f ~/.ssh/known_hosts -R " + ip))
-
 
     @property
     def ips(self):
