@@ -8,7 +8,7 @@ class Service:
 
         ips = []
         for vm in targets:
-            ips.append(common.translate_id(vm))
+            ips.extend(common.translate_id(vm))
 
         self.targets = ips
         self.provider = BaseServiceProvider.get(provider)(self.targets)
