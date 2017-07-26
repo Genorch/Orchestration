@@ -1,6 +1,8 @@
 from domain.service import Service
 from providers.base import BaseProvider
 from database import db
+from subprocess import call
+from utils import common
 
 
 class Server:
@@ -50,6 +52,11 @@ class Server:
 
     def delete(self):
         self.provider.delete_server(self._id)
+        ips = []
+        ips.extend(common.translate_id(self.name))
+        for ip in ips:
+            call(["ssh -f \"~/.ssh/known_hosts\" -R ", ip])
+
 
     @property
     def ips(self):
