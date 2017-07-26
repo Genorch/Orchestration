@@ -58,7 +58,7 @@ class Server:
         ips = []
         ips.extend(common.translate_id(self.name))
         for ip in ips:
-            call(["ssh -f \"~/.ssh/known_hosts\" -R ", ip])
+            print(call(["ssh -f \"~/.ssh/known_hosts\" -R ", ip]))
 
 
     @property
