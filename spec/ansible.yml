@@ -1,0 +1,28 @@
+project:
+  service: # describe each service with it's associated vm
+    - id: "5"
+      provider: "ansible"
+      type: "generic"
+      targets:
+        - "1"
+      opts:
+        playbook: "apache.yml"
+
+  topology: # Describe service dependecies
+    provider:
+      - name: "openstack"
+        region:
+          - name: "CORE"
+            vm:
+              - id: "1"
+                flavor: "m1.small"
+                image: "Ubuntu-16-04"
+                key: "tosca_key"
+                networks:
+                  - "ece1548-net"
+              - id: "2"
+                flavor: "m1.small"
+                image: "Ubuntu-16-04"
+                key: "tosca_key"
+                networks:
+                  - "ece1548-net"
