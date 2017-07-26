@@ -50,6 +50,9 @@ class Server:
 
         db.vms.insert(vm_data)
 
+        init = Service("ansible", [self.name], {"playbook": "init.yml"})
+        init.create()
+
     def delete(self):
         self.provider.delete_server(self._id)
         ips = []
