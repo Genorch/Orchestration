@@ -1,8 +1,9 @@
 from domain.service import Service
 from providers.base import BaseProvider
 from database import db
-from os import system
 from utils import common
+
+from os import system
 import click
 
 
