@@ -27,5 +27,7 @@
         command: apt-get install -f -y
       - name: remove apt lock file
         command: dpkg --configure -a
+  - include: docker.yml
+
 
 
