@@ -1,6 +1,15 @@
 ---
   - hosts: all
+    gather_facts: no
     tasks:
+      - name: Wait for server to start
+
+        local_action:
+          module: wait_for
+            host={{ inventory_hostname }}
+            port=22
+            delay=1
+            timeout=300
       - name: apt-get 
         shell: sleep 2 && shutdown -r now "Ansible updates triggered"
         async: 1
