@@ -1,5 +1,7 @@
 project:
   service: # describe each service with it's associated vm
+
+  config:
     - id: "5"
       provider: "docker"
       type: "generic"
