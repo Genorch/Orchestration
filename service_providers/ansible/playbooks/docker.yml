@@ -34,9 +34,12 @@
         name: docker-py
 
     - name: Make docker API accessible remotely
-      path: /lib/systemd/system/docker.service
-      regexp: '^ExecStart%'
-      line: 'ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:8000'
+      lineinfile:
+        path: /lib/systemd/system/docker.service
+        regexp: '^ExecStart(.*)$'
+        line: 'ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:8000'
 
-    - name: Restart docker
-      systemd: state=restarted name=docker
+    - systemd:
+        state: restarted
+        daemon_reload: yes
+        name: docker

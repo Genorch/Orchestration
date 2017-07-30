@@ -8,24 +8,15 @@
           module: wait_for
             host={{ inventory_hostname }}
             port=22
-            delay=1
             timeout=300
-      - name: apt-get 
-        shell: sleep 2 && shutdown -r now "Ansible updates triggered"
-        async: 1
-        poll: 0
-        ignore_errors: true
-      - name: Wait for server to restart
-
-        local_action:
-          module: wait_for
-            host={{ inventory_hostname }}
-            port=22
-            delay=1
-            timeout=300
+      - name: Wait for apt
+        shell: while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;
       - name: apt-get 
         command: apt-get install -f -y
-      - name: remove apt lock file
+      - name: Update repositories cache and install "foo" package
+        apt:
+          update_cache: yes
+      - name: Configure
         command: dpkg --configure -a
   - include: docker.yml
 

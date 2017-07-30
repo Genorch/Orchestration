@@ -7,10 +7,8 @@ project:
         - "1"
       opts:
         image: "nginx"
-        sth:
-          - {{ translate_id("1") }}
         ports:
-          80/tcp: 80
+          80/tcp: 443
 
 
   topology: # Describe service dependecies
