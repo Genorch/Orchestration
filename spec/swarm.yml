@@ -1,26 +1,4 @@
 project:
-  service: # describe each service with it's associated vm
-
-  config:
-    - id: "5"
-      provider: "docker"
-      type: "generic"
-      targets:
-        - "1"
-      opts:
-        sub_driver: "swarm"
-        manager: true
-    - id: "6"
-      provider: "docker"
-      type: "generic"
-      targets:
-        - "1"
-      opts:
-        sub_driver: "swarm"
-        manager: false
-
-
-
   topology: # Describe service dependecies
     provider:
       - name: "openstack"
@@ -33,6 +11,12 @@ project:
                 flavor: "m1.small"
                 image: "Ubuntu-16-04"
                 key: "tosca_key"
+                config:
+                  provider: "docker"
+                  type: "generic"
+                  opts:
+                    sub_driver: "swarm"
+                    manager: false
                 networks:
                   - "ece1548-net"
               {% endfor %}
