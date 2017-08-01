@@ -44,7 +44,7 @@ def parse(load):
                            region['name'], provider['name'],
                            vm['networks'], vm.get('key', None)).create()
 
-    if m['project']['service']:
+    if 'service' in m['project']:
         for service in m['project']['service']:
             click.secho('service => provider: %s, type: %s' %
                         (service['provider'], service['type']),
