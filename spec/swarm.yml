@@ -5,6 +5,20 @@ project:
         region:
           - name: "CORE"
             vm:
+              - id: 3
+                flavor: "m1.small"
+                image: "Ubuntu-16-04"
+                key: "tosca_key"
+                config:
+                  provider: "docker"
+                  type: "generic"
+                  opts:
+                    sub_driver: "swarm"
+                    opts:
+                      type: "manager"
+                networks:
+                  - "ece1548-net"
+
               {% for i in range(3) %}
 
               - id: "{{i}}"
@@ -16,7 +30,10 @@ project:
                   type: "generic"
                   opts:
                     sub_driver: "swarm"
-                    manager: false
+                    opts:
+                      type: "worker"
+                      managers:
+                        -
                 networks:
                   - "ece1548-net"
               {% endfor %}
