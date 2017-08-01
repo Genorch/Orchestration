@@ -6,7 +6,7 @@ from jinja2 import Environment, FileSystemLoader
 
 from domain.server import Server
 from domain.service import Service
-from utils.common import translate_id
+from utils.common import translate_id, id_to_swarm
 
 from database import db
 from tinydb import where
@@ -25,7 +25,7 @@ def parse(load):
     env = Environment(
         loader=FileSystemLoader('./')
     )
-    env.globals.update(translate_id=translate_id)
+    env.globals.update(translate_id=translate_id, id_to_swarm=id_to_swarm)
 
     m = env.get_template(load).render()
 
