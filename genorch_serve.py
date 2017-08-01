@@ -43,6 +43,11 @@ def parse(load):
                     Server(vm['id'], vm['image'], vm['flavor'],
                            region['name'], provider['name'],
                            vm['networks'], vm.get('key', None)).create()
+                    if 'config' in vm:
+                        Service(
+                            vm['config']['provider'],
+                            [vm['id']],
+                            vm['config']['opts']).create()
 
     if 'service' in m['project']:
         for service in m['project']['service']:
