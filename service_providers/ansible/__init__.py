@@ -8,6 +8,7 @@ from ansible.parsing.dataloader import DataLoader
 from .options import Options
 from ..base import ServiceProvider
 from config import cfg
+from utils import common
 
 
 class Ansible(ServiceProvider):
@@ -27,14 +28,19 @@ class Ansible(ServiceProvider):
         self.options.private_key_file = ansible_cfg['PRIVATE_SSH_KEY']
         self.options.connection = ansible_cfg['CONNECTION']
 
+        ips = []
+        for target in targets:
+            ips.extend(common.translate_id(target))
+
         self.inventory = Inventory(
                 loader=self.loader,
                 variable_manager=self.variable_manager,
-                host_list=targets
+                host_list=ips
                 )
         self.passwords = {'become_pass': ansible_cfg['BECOME_PASS']}
 
-        self.options.hostlist = targets
+
+        self.options.hostlist = ips
         self.variable_manager.set_inventory(self.inventory)
 
     def create_service(self, opts):
