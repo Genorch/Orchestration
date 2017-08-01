@@ -18,11 +18,17 @@
         repo:  deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
         state: present
 
+
     - name: Update dependencies and install docker
       action: >
         {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
       with_items:
         - docker-ce
+      register: result
+      until: result|succeeded
+      retries: 10
+      delay: 30
+      ignore_errors: yes
     - name: Install python
       apt: name={{item}} state=installed update_cache=yes
       with_items:

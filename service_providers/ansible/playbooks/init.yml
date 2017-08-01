@@ -9,15 +9,19 @@
             host={{ inventory_hostname }}
             port=22
             timeout=300
-      - name: Wait for apt
-        shell: while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;
-      - name: apt-get 
-        command: apt-get install -f -y
-      - name: Update repositories cache and install "foo" package
+#      - name: Fix installation of missing dependencies
+#        command: apt-get install -f -y
+#
+      - name: Wait for lock file
+        shell: while [[ $(sudo fuser /var/lib/dpkg/lock) ]]; do :; done
+      - name: Update repositories cache
         apt:
           update_cache: yes
-      - name: Configure
-        command: dpkg --configure -a
+        register: result
+        until: result|succeeded
+        ignore_errors: yes
+      - name: Wait for lock file
+        shell: while [[ $(sudo fuser /var/lib/dpkg/lock) ]]; do :; done
   - include: docker.yml
 
 
