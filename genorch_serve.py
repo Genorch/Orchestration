@@ -75,5 +75,32 @@ def truncate():
 
 @cli.command()
 def status():
-    click.secho(os.environ['GENORCH'])
-    os.environ['GENORCH'] = 2
+    status = int(os.environ['GENORCH'])
+    threshold = 5
+    if status > threshold:
+        vm = {
+                id: '10',
+                image: 'Ubuntu-16-04',
+                flavor: 'm1.small',
+                key: 'tosca_key',
+                networks: ['ece1548-net'],
+                config:
+                {
+                    provider: 'docker',
+                    type: 'generic',
+                    opts: {
+                        sub_driver: 'swarm',
+                        opts: {
+                            type: 'worker'
+                            }
+                        }
+                    }
+                }
+
+        Server(vm['id'], vm['image'], vm['flavor'],
+                region['name'], provider['name'],
+                vm['networks'], vm.get('key', None)).create()
+        Service(
+                vm['config']['provider'],
+                [vm['id']],
+                vm['config']['opts']).create()
