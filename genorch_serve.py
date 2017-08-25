@@ -7,6 +7,7 @@ from jinja2 import Environment, FileSystemLoader
 from domain.server import Server
 from domain.service import Service
 from utils.common import translate_id, id_to_swarm
+import os
 
 from database import db
 from tinydb import where
@@ -63,3 +64,9 @@ def parse(load):
 @cli.command()
 def truncate():
     Server.truncate()
+
+
+@cli.command()
+def status():
+    click.secho(os.environ['GENORCH'])
+    os.environ['GENORCH'] = 2
