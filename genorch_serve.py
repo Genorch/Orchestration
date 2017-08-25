@@ -3,6 +3,7 @@
 import yaml
 import click
 from jinja2 import Environment, FileSystemLoader
+import os
 
 from domain.server import Server
 from domain.service import Service
@@ -11,6 +12,7 @@ import os
 
 from database import db
 from tinydb import where
+from config import cfg
 
 
 @click.group()
@@ -23,6 +25,11 @@ def cli():
 @click.option('--load', prompt='YAML file',
               help='Target yaml file to parse')
 def parse(load):
+    if os.environ.get('ANSIBLE_CONFIG') is None:
+        os.environ['ANSIBLE_CONFIG'] = cfg.ansible['ANSIBLE_CONFIG']
+
+    click.secho('ansible.cfg location: %s' % os.environ.get('ANSIBLE_CONFIG'),
+                fg='yellow')
     env = Environment(
         loader=FileSystemLoader('./')
     )

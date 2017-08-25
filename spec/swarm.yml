@@ -5,7 +5,7 @@ project:
         region:
           - name: "CORE"
             vm:
-              - id: 3
+              - id: "3"
                 flavor: "m1.small"
                 image: "Ubuntu-16-04"
                 key: "tosca_key"
@@ -33,7 +33,7 @@ project:
                     opts:
                       type: "worker"
                       managers:
-                        -
+                        - "3"
                 networks:
                   - "ece1548-net"
               {% endfor %}
