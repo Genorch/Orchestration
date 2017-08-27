@@ -46,14 +46,13 @@
         line: 'ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:8000'
 
     - name: Configure docker to be used with prometheus
-      tasks:
-        - copy:
-          content: |
-              {
-                "metrics-addr" : "127.0.0.1:8774",
-                "experimental" : true
-              }
-          dest: /etc/docker/daemon.json
+      copy:
+        content: |
+          {
+            "metrics-addr" : "0.0.0.0:8774",
+            "experimental" : true
+          }
+        dest: /etc/docker/daemon.json
 
     - systemd:
         state: restarted
