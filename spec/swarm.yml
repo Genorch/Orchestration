@@ -19,7 +19,7 @@ project:
                 networks:
                   - "ece1548-net"
 
-              {% for i in range(3) %}
+              {% for i in range(2) %}
 
               - id: "{{i}}"
                 flavor: "m1.small"
