@@ -1,0 +1,32 @@
+---
+- hosts: all
+  tasks:
+    - name: Download prometheus
+      unarchive:
+        url: https://github.com/prometheus/node_exporter/releases/download/v0.14.0/node_exporter-0.14.0.linux-amd64.tar.gz
+        dest: /tmp/node_exporter
+        remote_src: True
+
+    - name: Create symlink
+      file:
+        src: /tmp/node_exporter/node_exporter
+        dest: /usr/bin/node_exporter
+        state: link
+
+    - name: Make it a service
+      tasks:
+        - copy:
+          content: |
+            # Run node_exporter
+            start on startup
+
+            script
+               /usr/bin/node_exporter
+            end script
+          dest: /etc/init/node_exporter.conf
+
+    - name: Start node exporter
+      service:
+        name: node_exporter
+        state: started
+
