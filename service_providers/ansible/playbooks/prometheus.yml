@@ -21,7 +21,7 @@
             start on startup
 
             script
-               /usr/bin/node_exporter
+              /usr/bin/node_exporter -web.listen-address ":6634"
             end script
           dest: /etc/init/node_exporter.conf
 
