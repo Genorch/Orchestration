@@ -22,7 +22,7 @@
           Wants=local-fs.target network-online.target network.target
 
           [Service]
-          ExecStart=/usr/bin/node_exporter
+          ExecStart=/usr/bin/node_exporter -web.listen-address ":6634"
           Type=simple
 
           [Install]
