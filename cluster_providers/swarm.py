@@ -40,7 +40,7 @@ class SwarmClusterProvider(ClusterProvider):
                                   ),
                               where('name') == vm['id'])
 
-                # TODO Remove VM from self.vms
+                self.vms.remove(vm)
                 self.init = vm
                 break
 
