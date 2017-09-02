@@ -67,7 +67,7 @@ def parse(load):
                     service['opts']).create()
 
     if 'clusters' in m['project']:
-        for cluster in m['project']['cluster']:
+        for cluster in m['project']['clusters']:
             click.secho('cluster => provider: %s, id: %s' %
                         (cluster['provider'], cluster['id']),
                         fg="blue")
