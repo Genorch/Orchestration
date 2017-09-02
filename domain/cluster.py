@@ -1,4 +1,4 @@
-from cluster_providers.base import ClusterBaseProvider
+from cluster_providers.base import BaseClusterProvider
 from database import db
 from utils import common
 
