@@ -4,7 +4,7 @@ project:
       - name: "openstack"
         region:
           - name: "CORE"
-            vms:
+            vm:
               - id: "3"
                 flavor: "m1.small"
                 image: "Ubuntu-16-04"
@@ -37,3 +37,15 @@ project:
                 networks:
                   - "ece1548-net"
               {% endfor %}
+
+  clusters:
+    - id: "1"
+      vms:
+        - id: "1"
+          role: "manager"
+        - id: "2"
+          role: "manager"
+        - id: "3"
+          role: "worker"
+
+      provider: "swarm"
