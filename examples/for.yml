@@ -1,5 +1,9 @@
+#
+# This examples demonstrates the use of for loops
+# Inside the description file
+#
 project:
-  topology: # Describe service dependecies
+  topology:
     provider:
       - name: "openstack"
         region:
