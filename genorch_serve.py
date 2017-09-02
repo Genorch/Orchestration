@@ -39,7 +39,7 @@ def parse(load):
     m = yaml.load(m)
     for provider in m['project']['topology']['provider']:
         for region in provider['region']:
-            for vm in region['vm']:
+            for vm in region['vms']:
                 click.secho('virtual machine => provider: %s, region: %s' %
                             (provider['name'], region['name']),
                             fg="green")
