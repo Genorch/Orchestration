@@ -53,7 +53,7 @@ class SwarmClusterProvider(ClusterProvider):
 
     def add_manager(self, vm):
             docker_client = docker.DockerClient('tcp://' +
-                                                common.translate_id(vm['id'])
+                                                common.translate_id(vm['id'])[0]
                                                 + ':' + cfg.docker['API_PORT'])
             swarm_client = docker_client.swarm
             manager = db.vms.get(where('name') == self.init['id'])
@@ -65,7 +65,7 @@ class SwarmClusterProvider(ClusterProvider):
 
     def add_worker(self, vm):
             docker_client = docker.DockerClient('tcp://' +
-                                                common.translate_id(vm['id'])
+                                                common.translate_id(vm['id'])[0]
                                                 + ':' + cfg.docker['API_PORT'])
             swarm_client = docker_client.swarm
             manager = db.vms.get(where('name') == self.init['id'])
