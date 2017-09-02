@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from ..base import ServiceProvider
 from config import cfg
 from utils import  common
@@ -42,7 +40,6 @@ class Docker(ServiceProvider):
 
                     if node_type == 'manager':
                         sub_driver.init('eth0:' + cfg.docker['SWARM_PORT'], '0.0.0.0:' + cfg.docker['SWARM_PORT'])
-                        print(sub_driver.attrs['JoinTokens'])
                         db.vms.update(insert_join_token(sub_driver.attrs['JoinTokens']), where('name') == target)
                     elif node_type == 'worker':
                         manager = db.vms.get(where('name') == sub_driver_opts['managers'][0])
@@ -50,4 +47,3 @@ class Docker(ServiceProvider):
 
             else:
                 docker_client.containers.run(**opts, detach=True)
-
