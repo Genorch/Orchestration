@@ -1,5 +1,5 @@
 project:
-  topology: # Describe service dependecies
+  topology:
     provider:
       - name: "openstack"
         region:
@@ -47,4 +47,5 @@ project:
           role: "manager"
         - id: "3"
           role: "worker"
+
       provider: "swarm"

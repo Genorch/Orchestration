@@ -1,5 +1,5 @@
 project:
-  service: # describe each service with it's associated vm
+  services:
     - id: "5"
       provider: "docker"
       type: "generic"
@@ -11,12 +11,12 @@ project:
           80/tcp: 443
 
 
-  topology: # Describe service dependecies
+  topology:
     provider:
       - name: "openstack"
         region:
           - name: "CORE"
-            vm:
+            vms:
               {% for i in range(3) %}
 
               - id: "{{i}}"

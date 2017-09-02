@@ -1,5 +1,5 @@
 project:
-  service: # describe each service with it's associated vm
+  services:
     - id: "5"
       provider: "ansible"
       type: "generic"
@@ -8,12 +8,12 @@ project:
       opts:
         playbook: "apache.yml"
 
-  topology: # Describe service dependecies
+  topology:
     provider:
       - name: "openstack"
         region:
           - name: "CORE"
-            vm:
+            vms:
               - id: "1"
                 flavor: "m1.small"
                 image: "Ubuntu-16-04"
