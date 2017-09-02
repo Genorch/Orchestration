@@ -1,3 +1,10 @@
+#
+# A sample description of services over topology with
+# Ansible as service provider.
+#
+# In this example we're using the apache playbook to install apache
+# in the targets specified.
+#
 project:
   services:
     - id: "5"
