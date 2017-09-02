@@ -25,7 +25,7 @@ class SwarmClusterProvider(ClusterProvider):
         self.vms = vms
 
     def create_cluster(self):
-        init = {}
+        self.init = {}
         for vm in self.vms:
             docker_client = docker.DockerClient('tcp://' +
                                                 common.translate_id(vm.id)[0]
@@ -41,25 +41,35 @@ class SwarmClusterProvider(ClusterProvider):
                               where('name') == vm['id'])
 
                 # TODO Remove VM from self.vms
-                init = vm
+                self.init = vm
                 break
 
         for vm in self.vms:
+            if vm['role'] == 'manager':
+                self.add_manager(vm)
+            elif vm['role'] == 'worker':
+                self.add_worker(vm)
+
+    def add_manager(self, vm):
             docker_client = docker.DockerClient('tcp://' +
                                                 common.translate_id(vm.id)[0]
                                                 + ':' + cfg.docker['API_PORT'])
             swarm_client = docker_client.swarm
-            if vm['role'] == 'manager':
-                manager = db.vms.get(where('name') == init['id'])
-                swarm_client.join(
-                        [common.id_to_swarm(init['id'])],
-                        manager['docker']['join_tokens']['Manager'],
-                        '0.0.0.0:' + cfg.docker['SWARM_PORT']
-                        )
-            elif vm['role'] == 'worker':
-                manager = db.vms.get(where('name') == init['id'])
-                swarm_client.join(
-                        [common.id_to_swarm(init['id'])],
-                        manager['docker']['join_tokens']['Worker'],
-                        '0.0.0.0:' + cfg.docker['SWARM_PORT']
-                        )
+            manager = db.vms.get(where('name') == self.init['id'])
+            swarm_client.join(
+                    [common.id_to_swarm(self.init['id'])],
+                    manager['docker']['join_tokens']['Manager'],
+                    '0.0.0.0:' + cfg.docker['SWARM_PORT']
+                    )
+
+    def add_worker(self, vm):
+            docker_client = docker.DockerClient('tcp://' +
+                                                common.translate_id(vm.id)[0]
+                                                + ':' + cfg.docker['API_PORT'])
+            swarm_client = docker_client.swarm
+            manager = db.vms.get(where('name') == self.init['id'])
+            swarm_client.join(
+                    [common.id_to_swarm(self.init['id'])],
+                    manager['docker']['join_tokens']['Worker'],
+                    '0.0.0.0:' + cfg.docker['SWARM_PORT']
+                    )
