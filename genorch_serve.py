@@ -8,7 +8,6 @@ import os
 from domain.server import Server
 from domain.service import Service
 from utils.common import translate_id, id_to_swarm
-import os
 
 from database import db
 from tinydb import where
@@ -57,8 +56,8 @@ def parse(load):
                             [vm['id']],
                             vm['config']['opts']).create()
 
-    if 'service' in m['project']:
-        for service in m['project']['service']:
+    if 'services' in m['project']:
+        for service in m['project']['services']:
             click.secho('service => provider: %s, type: %s' %
                         (service['provider'], service['type']),
                         fg="blue")
@@ -67,41 +66,13 @@ def parse(load):
                     service['targets'],
                     service['opts']).create()
 
+    if 'clusters' in m['project']:
+        for cluster in m['project']['cluster']:
+            click.secho('cluster => provider: %s, id: %s' %
+                        (cluster['provider'], cluster['id']),
+                        fg="blue")
+
 
 @cli.command()
 def truncate():
     Server.truncate()
-
-
-@cli.command()
-def status():
-    status = int(os.environ['GENORCH'])
-    threshold = 5
-    if status > threshold:
-        vm = {
-                'id': '10',
-                'image': 'Ubuntu-16-04',
-                'flavor': 'm1.small',
-                'key': 'tosca_key',
-                'networks': ['ece1548-net'],
-                'config':
-                {
-                    'provider': 'docker',
-                    'type': 'generic',
-                    'opts': {
-                        'sub_driver': 'swarm',
-                        'opts': {
-                            'type': 'worker',
-                            'managers': ['3']
-                            }
-                        }
-                    }
-                }
-
-        Server(vm['id'], vm['image'], vm['flavor'],
-                'CORE', 'openstack',
-                vm['networks'], vm.get('key', None)).create()
-        Service(
-                vm['config']['provider'],
-                [vm['id']],
-                vm['config']['opts']).create()
