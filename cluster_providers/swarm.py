@@ -3,6 +3,7 @@ from config import cfg
 from utils import common
 
 import docker
+import click
 
 from database import db
 from tinydb import where
