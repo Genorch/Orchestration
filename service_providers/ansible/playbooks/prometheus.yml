@@ -3,27 +3,31 @@
   tasks:
     - name: Download prometheus
       unarchive:
-        url: https://github.com/prometheus/node_exporter/releases/download/v0.14.0/node_exporter-0.14.0.linux-amd64.tar.gz
-        dest: /tmp/node_exporter
+        src: https://github.com/prometheus/node_exporter/releases/download/v0.14.0/node_exporter-0.14.0.linux-amd64.tar.gz
+        dest: /tmp/
         remote_src: True
 
     - name: Create symlink
       file:
-        src: /tmp/node_exporter/node_exporter
+        src: /tmp/node_exporter-0.14.0.linux-amd64/node_exporter
         dest: /usr/bin/node_exporter
         state: link
 
     - name: Make it a service
-      tasks:
-        - copy:
-          content: |
-            # Run node_exporter
-            start on startup
+      copy:
+        content: |
+          [Unit]
+          Description=Prometheus node exporter
+          After=local-fs.target network-online.target network.target
+          Wants=local-fs.target network-online.target network.target
 
-            script
-              /usr/bin/node_exporter -web.listen-address ":6634"
-            end script
-          dest: /etc/init/node_exporter.conf
+          [Service]
+          ExecStart=/usr/bin/node_exporter -web.listen-address ":6634"
+          Type=simple
+
+          [Install]
+          WantedBy=multi-user.target
+        dest: /etc/systemd/system/node_exporter.service
 
     - name: Start node exporter
       service:
