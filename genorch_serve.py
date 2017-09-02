@@ -7,6 +7,7 @@ import os
 
 from domain.server import Server
 from domain.service import Service
+from domain.cluster import Cluster
 from utils.common import translate_id, id_to_swarm
 
 from database import db
@@ -68,6 +69,9 @@ def parse(load):
 
     if 'clusters' in m['project']:
         for cluster in m['project']['clusters']:
+            Cluster(
+                    cluster['id'], cluster['vms'], cluster['provider']
+                    ).create()
             click.secho('cluster => provider: %s, id: %s' %
                         (cluster['provider'], cluster['id']),
                         fg="blue")

@@ -7,10 +7,10 @@ class Cluster:
     def __init__(self, _id, vms, provider):
         self._id = _id
         self.vms = vms
-        self.provider = BaseProvider.get(provider)
+        self.provider = BaseProvider.get(provider)(self.vms)
 
     def create(self):
-        self.cluster = self.provider.create_cluster(self.vms)
+        self.cluster = self.provider.create_cluster()
 
         # Store the created cluster inside database
         cluster_data = {
