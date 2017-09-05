@@ -7,7 +7,7 @@ class Cluster:
     def __init__(self, _id, vms, provider):
         self._id = _id
         self.vms = vms
-        self.provider = ClusterBaseProvider.get(provider)(self.vms)
+        self.provider = BaseClusterProvider.get(provider)(self.vms)
 
     def create(self):
         self.cluster = self.provider.create_cluster()
