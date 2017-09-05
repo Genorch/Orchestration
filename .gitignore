@@ -112,5 +112,5 @@ celerybeat-schedule
 config/genorch.ini
 config/ansible.cfg
 *.retry
-db/
+data/*
 
