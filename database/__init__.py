@@ -4,7 +4,7 @@ from tinydb import TinyDB
 class DB:
 
     def __init__(self):
-        self.tinydb = TinyDB('db/db.json')
+        self.tinydb = TinyDB('data/db.json')
 
     def __getattr__(self, item):
         table = self.tinydb.table(item)
