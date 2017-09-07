@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import json
 import yaml
 import click
 from jinja2 import Environment, FileSystemLoader
@@ -56,6 +57,8 @@ def parse(load):
                             vm['config']['provider'],
                             [vm['id']],
                             vm['config']['opts']).create()
+                else:
+                    click.secho('Server exists!', fg='yellow')
 
     if 'services' in m['project']:
         for service in m['project']['services']:
@@ -67,14 +70,24 @@ def parse(load):
                     service['targets'],
                     service['opts']).create()
 
+    clusters = []
     if 'clusters' in m['project']:
         for cluster in m['project']['clusters']:
+
             Cluster(
                     cluster['id'], cluster['vms'], cluster['provider']
                     ).create()
             click.secho('cluster => provider: %s, id: %s' %
                         (cluster['provider'], cluster['id']),
                         fg="blue")
+            targets = {'targets': []}
+            for vm in cluster['vms']:
+                targets['targets'].append(translate_id(vm['id'] + ':6634'))
+
+            clusters.append(targets)
+
+    with open('data/targets.json', 'w') as fp:
+        json.dump(clusters, fp)
 
 
 @cli.command()
