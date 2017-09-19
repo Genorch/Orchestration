@@ -39,36 +39,36 @@ def parse(load):
     m = env.get_template(load).render()
 
     m = yaml.load(m)
-  #  for provider in m['project']['topology']['provider']:
-  #      for region in provider['region']:
-  #          for vm in region['vms']:
-  #              click.secho('virtual machine => provider: %s, region: %s' %
-  #                          (provider['name'], region['name']),
-  #                          fg="green")
+    for provider in m['project']['topology']['provider']:
+        for region in provider['region']:
+            for vm in region['vms']:
+                click.secho('virtual machine => provider: %s, region: %s' %
+                            (provider['name'], region['name']),
+                            fg="green")
 
-  #              servers = db.vms.search(where('name') == vm['id'])
+                servers = db.vms.search(where('name') == vm['id'])
 
-  #              if len(servers) == 0:
-  #                  Server(vm['id'], vm['image'], vm['flavor'],
-  #                         region['name'], provider['name'],
-  #                         vm['networks'], vm.get('key', None)).create()
-  #                  if 'config' in vm:
-  #                      Service(
-  #                          vm['config']['provider'],
-  #                          [vm['id']],
-  #                          vm['config']['opts']).create()
-  #              else:
-  #                  click.secho('Server exists!', fg='yellow')
+                if len(servers) == 0:
+                    Server(vm['id'], vm['image'], vm['flavor'],
+                           region['name'], provider['name'],
+                           vm['networks'], vm.get('key', None)).create()
+                    if 'config' in vm:
+                        Service(
+                            vm['config']['provider'],
+                            [vm['id']],
+                            vm['config']['opts']).create()
+                else:
+                    click.secho('Server exists!', fg='yellow')
 
-  #  if 'services' in m['project']:
-  #      for service in m['project']['services']:
-  #          click.secho('service => provider: %s, type: %s' %
-  #                      (service['provider'], service['type']),
-  #                      fg="blue")
-  #          Service(
-  #                  service['provider'],
-  #                  service['targets'],
-  #                  service['opts']).create()
+    if 'services' in m['project']:
+        for service in m['project']['services']:
+            click.secho('service => provider: %s, type: %s' %
+                        (service['provider'], service['type']),
+                        fg="blue")
+            Service(
+                    service['provider'],
+                    service['targets'],
+                    service['opts']).create()
 
     clusters = []
     if 'clusters' in m['project']:
