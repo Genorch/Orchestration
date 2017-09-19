@@ -1,0 +1,7 @@
+ALERT Pinging IF rate(node_network_receive_bytes[1m]) > 150
+FOR 10s
+LABELS { severity = "slack" }
+ANNOTATIONS {
+    summary = "Instance {{ $labels.instance }} pinging",
+            description = "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 10 seconds.",
+}
