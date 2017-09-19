@@ -5,14 +5,8 @@ project:
         region:
           - name: "CORE"
             vms:
-              - id: "3"
-                flavor: "m1.small"
-                image: "Ubuntu-16-04"
-                key: "tosca_key"
-                networks:
-                  - "ece1548-net"
 
-              {% for i in range(3) %}
+              {% for i in range(4) %}
 
               - id: "{{i}}"
                 flavor: "m1.small"
@@ -23,13 +17,13 @@ project:
               {% endfor %}
 
   clusters:
-    - id: "1"
+    {% for i in range(2) %}
+    - id: "{{i}}"
       vms:
-        - id: "1"
+        - id: "{{2*i}}"
           role: "manager"
-        - id: "2"
-          role: "manager"
-        - id: "3"
+        - id: "{{2*i+1}}"
           role: "worker"
 
       provider: "swarm"
+        {% endfor %}
