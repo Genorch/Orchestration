@@ -6,7 +6,7 @@ from utils import common
 class Cluster:
     def __init__(self, _id, vms, provider):
         self._id = _id
-        self.vms = vms
+        self.vms = vms[:]
         self.provider = BaseClusterProvider.get(provider)(self.vms)
 
     def create(self):
