@@ -22,8 +22,8 @@
         ignore_errors: yes
       - name: Wait for lock file
         shell: while [[ $(sudo fuser /var/lib/dpkg/lock) ]]; do :; done
-  - include: docker.yml
-  - include: prometheus.yml
+  - import_playbook: docker.yml
+  - import_playbook: prometheus.yml
 
 
 
