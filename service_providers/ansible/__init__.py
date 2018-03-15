@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 from ansible.executor.playbook_executor import PlaybookExecutor
-from ansible.inventory import Inventory
-from ansible.vars import VariableManager
+from ansible.inventory.manager import InventoryManager
+from ansible.vars.manager import VariableManager
 from ansible.parsing.dataloader import DataLoader
 
 from .options import Options
@@ -18,7 +18,6 @@ class Ansible(ServiceProvider):
 
         ansible_cfg = cfg['ansible']
 
-        self.variable_manager = VariableManager()
         self.loader = DataLoader()
         self.passwords = {}
         self.options = Options()
@@ -27,21 +26,22 @@ class Ansible(ServiceProvider):
         self.options.become = True
         self.options.private_key_file = ansible_cfg['PRIVATE_SSH_KEY']
         self.options.connection = ansible_cfg['CONNECTION']
+        self.options.forks = 1
 
         ips = []
         for target in targets:
             ips.extend(common.translate_id(target))
 
-        self.inventory = Inventory(
+        ips.append('')
+        self.inventory = InventoryManager(
                 loader=self.loader,
-                variable_manager=self.variable_manager,
-                host_list=ips
+                sources=','.join(ips)
                 )
+        self.variable_manager = VariableManager(loader=self.loader, inventory=self.inventory)
         self.passwords = {'become_pass': ansible_cfg['BECOME_PASS']}
 
 
         self.options.hostlist = ips
-        self.variable_manager.set_inventory(self.inventory)
 
     def create_service(self, opts):
         pbex = PlaybookExecutor(
