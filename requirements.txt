@@ -1,8 +1,0 @@
-python-openstackclient
-python-neutronclient
-ansible
-click
-pyyaml
-tinydb
-docker
-Jinja2

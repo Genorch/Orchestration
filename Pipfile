@@ -1,0 +1,27 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+name = "pypi"
+verify_ssl = true
+
+
+[packages]
+
+python-openstackclient = "*"
+python-neutronclient = "*"
+ansible = "*"
+click = "*"
+pyyaml = "*"
+tinydb = "*"
+docker = "*"
+"jinja2" = "*"
+
+
+[dev-packages]
+flake8
+pep8-naming
+
+
+[requires]
+
+python_version = "3.5"
