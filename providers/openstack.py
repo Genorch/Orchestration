@@ -2,6 +2,8 @@ from .base import Provider
 from config import cfg
 
 import os_client_config
+import novaclient
+import click
 
 
 class OpenStackProvider(Provider):
@@ -25,7 +27,7 @@ class OpenStackProvider(Provider):
             self.neutron = os_client_config.make_client('network',
                                                         **credentials)
         except FileNotFoundError:
-            print("OpenStack configuration not found.")
+            click.secho('OpenStack configuration not found.', fg='red')
             exit()
 
     def create_server(self, image_name, flavor_name, instance_name,
@@ -44,7 +46,10 @@ class OpenStackProvider(Provider):
         return instance.id
 
     def delete_server(self, instance_id):
-        self.nova.servers.get(instance_id).delete()
+        try:
+            self.nova.servers.get(instance_id).delete()
+        except novaclient.exceptions.NotFound:
+            click.secho('Server has been deleted from other sources', fg='yellow')
 
     def ips(self, instance_id):
         return self.nova.servers.ips(instance_id)
