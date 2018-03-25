@@ -5,10 +5,13 @@ from ansible.inventory.manager import InventoryManager
 from ansible.vars.manager import VariableManager
 from ansible.parsing.dataloader import DataLoader
 
+import os
+
 from .options import Options
 from ..base import ServiceProvider
 from config import cfg
 from utils import common
+
 
 
 class Ansible(ServiceProvider):
@@ -44,13 +47,30 @@ class Ansible(ServiceProvider):
         self.options.hostlist = ips
 
     def create_service(self, opts):
-        pbex = PlaybookExecutor(
-                playbooks=['service_providers/ansible/playbooks/' +
-                           opts['playbook']],
-                inventory=self.inventory,
-                variable_manager=self.variable_manager,
-                loader=self.loader,
-                options=self.options,
-                passwords=self.passwords
-                )
+        os.environ['ANSIBLE_CONFIG'] = cfg.ansible['ANSIBLE_CONFIG']
+        if 'vars' in opts:
+            self.variable_manager.extra_vars = opts['vars']
+        else:
+            self.options.extra_vars = None
+            self.variable_manager.extra_vars = {}
+        pbex = ''
+        if opts['playbook'].startswith('/'):
+            pbex = PlaybookExecutor(
+                    playbooks=[opts['playbook']],
+                    inventory=self.inventory,
+                    variable_manager=self.variable_manager,
+                    loader=self.loader,
+                    options=self.options,
+                    passwords=self.passwords
+                    )
+        else:
+            pbex = PlaybookExecutor(
+                    playbooks=['service_providers/ansible/playbooks/' +
+                               opts['playbook']],
+                    inventory=self.inventory,
+                    variable_manager=self.variable_manager,
+                    loader=self.loader,
+                    options=self.options,
+                    passwords=self.passwords
+                    )
         pbex.run()
