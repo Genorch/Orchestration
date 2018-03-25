@@ -46,4 +46,10 @@ class Docker(ServiceProvider):
                         sub_driver.join([common.id_to_swarm(sub_driver_opts['managers'][0])], manager['docker']['join_tokens']['Worker'], '0.0.0.0:' + cfg.docker['SWARM_PORT'])
 
             else:
-                docker_client.containers.run(**opts, detach=True)
+                if 'volumes' in opts:
+                    mounts = list(map(lambda x: docker.types.Mount(x.split(':')[1], x.split(':')[0], 'bind'), opts['volumes']))
+                    del opts['volumes']
+                    opts['mounts'] = mounts
+                    docker_client.containers.run(**opts, detach=True)
+                else:
+                    docker_client.containers.run(**opts, detach=True)
